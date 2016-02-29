@@ -1,0 +1,51 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": false,
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "rootDir": "./"
+        //,"outDir": "./dist/"
+    },
+    "path": {
+        "projectA": "/"
+    },
+
+    "filesGlob": [
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+
+    "rootDirs": [
+        "./"
+    ],
+
+    "paths": {
+        "*": ["*"]
+    },
+    "exclude": ["test"],
+    "files": [
+        "./core/FabaEvent.ts",
+        "./typings/mongodb/mongodb.d.ts",
+        "./typings/node/node.d.ts",
+        "./FabaServer.ts",
+        "./FabaWebApplication.ts",
+        "./core/FabaService.ts",
+        "./core/FabaValueObject.ts",
+        "./core/FabaCommand.ts",
+        "./core/FabaCore.ts",
+        "./core/FabaModel.ts",
+        "./transport/FabaApiConnection.ts",
+        "./nodejs/mongodb/FabaMongoCollection.ts",
+        "./nodejs/mongodb/FabaMongoConnection.ts",
+        "./core/FabaEventManager.ts"
+    ]
+}
