@@ -2,10 +2,12 @@
   "name": "fabalous",
   "version": "0.0.4",
   "description": "The Fabulous Faba MVC framework",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel --presets es2015 -d ./dist ./dist"
   },
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Faba-network/fabalous.git"
@@ -23,10 +25,10 @@
   },
   "homepage": "https://github.com/Faba-network/fabalous#readme",
   "dependencies": {
-
+    "mongodb": "^2.1.2",
+    "object.assign": "^4.0.3"
   },
   "devDependencies": {
-    "mongodb": "^2.1.2"
   },
   "readme": "README.md"
 }

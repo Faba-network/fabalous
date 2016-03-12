@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "commonjs",
         "sourceMap": false,
-        "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "declaration": true,
@@ -12,11 +10,8 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "rootDir": "./"
-        //,"outDir": "./dist/"
-    },
-    "path": {
-        "projectA": "/"
+        "rootDir": "./src/",
+        "outDir": "./dist/"
     },
 
     "filesGlob": [
@@ -25,7 +20,7 @@
     ],
 
     "rootDirs": [
-        "./"
+        "./src/"
     ],
 
     "paths": {
@@ -33,19 +28,20 @@
     },
     "exclude": ["test"],
     "files": [
-        "./core/FabaEvent.ts",
+        "./src/core/FabaEvent.ts",
         "./typings/mongodb/mongodb.d.ts",
         "./typings/node/node.d.ts",
-        "./FabaServer.ts",
-        "./FabaWebApplication.ts",
-        "./core/FabaService.ts",
-        "./core/FabaValueObject.ts",
-        "./core/FabaCommand.ts",
-        "./core/FabaCore.ts",
-        "./core/FabaModel.ts",
-        "./transport/FabaApiConnection.ts",
-        "./nodejs/mongodb/FabaMongoCollection.ts",
-        "./nodejs/mongodb/FabaMongoConnection.ts",
-        "./core/FabaEventManager.ts"
+        "./src/FabaServer.ts",
+        "./src/FabaWebApplication.ts",
+        "./src/core/FabaService.ts",
+        "./src/core/FabaValueObject.ts",
+        "./src/core/FabaCommand.ts",
+        "./src/core/FabaCore.ts",
+        "./src/core/FabaModel.ts",
+        "./src/transport/FabaApiConnection.ts",
+        "./src/nodejs/mongodb/FabaMongoCollection.ts",
+        "./src/nodejs/mongodb/FabaMongoConnection.ts",
+        "./src/decorators/FabaBindable.ts",
+        "./src/core/FabaEventManager.ts"
     ]
 }

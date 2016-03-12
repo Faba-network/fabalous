@@ -1,4 +1,4 @@
-export default function Bindable(target:any, key:string) {
+export default function FabaBindable(target:any, key:string) {
     // property value
     var _val = target[key];
 
