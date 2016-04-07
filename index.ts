@@ -67,7 +67,10 @@ if (program.init){
 
         console.log("Copy files in " + folderName);
 
-        ncp(__dirname+"/files/","./"+folderName+"/", function (e) {
+        ncp(__dirname+"/files/configs/","./"+folderName+"/", function (e) {
+            ncp(__dirname+"/files/examples/","./"+folderName+"/src/", function (e) {
+            });
+
             var file = folderName+'/package.json';
 
             var obj = jsonfile.readFileSync(file);
