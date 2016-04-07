@@ -1,6 +1,7 @@
 #!/usr/bin/env node --harmony
 /// <reference path="typings/commander/commander.d.ts" />
 
+import {statSync} from "fs";
 console.log(__dirname);
 
 import {mkdirSync} from "fs";
@@ -17,11 +18,14 @@ program
     .option('-h, --help', 'Help')
     .parse(process.argv);
 
+
+
 if (program.init){
     co(function *() {
         var confirm = prompt.confirm;
 
         var name = yield prompt('Project name?: ');
+        var folderName =  name.replace(/ /g,"-");
         var webApp = yield confirm('Do you create a WebApp? (yes/no): ');
         var phoneGap = yield confirm('Do you create a PhonegapApp? (yes/no): ');
         var reactNative = yield confirm('Do you create a React-Native App? (yes/no): ');
@@ -34,11 +38,17 @@ if (program.init){
         console.log(reactNative);
         console.log(wallaby);
 
-        mkdirSync("./test/");
-        ncp(__dirname+"/files/","./test/", function (e) {
-            console.log(e);
-        });
+        try {
+            statSync("./"+folderName+"/");
+        } catch(e){
+            console.log("Folder does not exist");
+            mkdirSync("./"+folderName+"/");
+        }
 
-        //process.exit(0);
+        //ncp(__dirname+"/files/","./test/", function (e) {
+         //   console.log(e);
+        //});
+
+        process.exit(0);
     });
 }
