@@ -2,14 +2,37 @@
 /// <reference path="typings/commander/commander.d.ts" />
 
 import {statSync} from "fs";
-console.log(__dirname);
-
 import {mkdirSync} from "fs";
 import {ncp} from "ncp";
-import {log} from "util";
+import {exec} from "child_process";
+
+var jsonfile = require('jsonfile');
+var util = require('util');
 var program = require('commander');
 var co = require('co');
 var prompt = require('co-prompt');
+
+var run = function(cmd:string, folderName:string){
+    var child = exec(cmd,{
+            cwd: folderName
+        },
+        function (error, stdout, stderr) {
+            if (stderr !== null) {
+                console.log('' + stderr);
+            }
+            if (stdout !== null) {
+                console.log('' + stdout);
+            }
+            if (error !== null) {
+                console.log('' + error);
+            }
+
+            console.log("NPM finish happy coding :)");
+            process.exit(0);
+        });
+};
+
+
 
 program
     .usage('[options]')
@@ -18,6 +41,7 @@ program
     .option('-h, --help', 'Help')
     .parse(process.argv);
 
+//
 
 
 if (program.init){
@@ -25,30 +49,42 @@ if (program.init){
         var confirm = prompt.confirm;
 
         var name = yield prompt('Project name?: ');
+
+        if (name == "") throw new Error("No name provided");
+
         var folderName =  name.replace(/ /g,"-");
         var webApp = yield confirm('Do you create a WebApp? (yes/no): ');
         var phoneGap = yield confirm('Do you create a PhonegapApp? (yes/no): ');
         var reactNative = yield confirm('Do you create a React-Native App? (yes/no): ');
         var wallaby = yield confirm('Need a wallaby config? (yes/no): ');
 
-        console.log('Props:');
-        console.log(name);
-        console.log(webApp);
-        console.log(phoneGap);
-        console.log(reactNative);
-        console.log(wallaby);
-
         try {
             statSync("./"+folderName+"/");
         } catch(e){
-            console.log("Folder does not exist");
+            console.log("Folder does not exist, create it...");
             mkdirSync("./"+folderName+"/");
         }
 
-        //ncp(__dirname+"/files/","./test/", function (e) {
-         //   console.log(e);
-        //});
+        console.log("Copy files in " + folderName);
 
-        process.exit(0);
+        ncp(__dirname+"/files/","./"+folderName+"/", function (e) {
+            var file = folderName+'/package.json';
+
+            var obj = jsonfile.readFileSync(file);
+
+            obj.name = folderName;
+
+            jsonfile.writeFileSync(file, obj, {spaces: 2});
+            console.log("Call npm install.... Coffee time?");
+            run('npm install', folderName);
+        });
+    }).then(function (value) {
+        //console.log(value);
+        //process.exit(0);
+    }, function (err) {
+        console.error(err);
+        process.exit(1);
     });
 }
+
+

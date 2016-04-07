@@ -1,15 +1,19 @@
 {
   "name": "fabalous",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
     "commander": "^2.9.0",
+    "jsonfile": "^2.2.3",
     "ncp": "^2.0.0"
   },
-  "files": ["./files/","files"],
+  "files": [
+    "./files/",
+    "files"
+  ],
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
