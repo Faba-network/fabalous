@@ -65,6 +65,7 @@ if (program.init){
         ncp(__dirname+"/files/configs/","./"+folderName+"/", function (e) {
             ncp(__dirname+"/files/src/","./"+folderName+"/src/", function(e){});
             ncp(__dirname+"/files/dist/","./"+folderName+"/dist/", function(e){});
+            ncp(__dirname+"/files/typings/","./"+folderName+"/", function(e){});
 
             var file = folderName+'/package.json';
 

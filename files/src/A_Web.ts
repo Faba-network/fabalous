@@ -1,7 +1,9 @@
-/**
- * Created by joerg on 07.04.2016.
- */
+import FabaWebApplication from "fabalous-core/runtimes/FabaWebApplication";
 
-class A_Web{
-    
+class A_Web extends FabaWebApplication {
+    constructor() {
+        super();
+    }
 }
+
+new A_Web();
