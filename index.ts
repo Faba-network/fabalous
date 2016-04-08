@@ -32,17 +32,12 @@ var run = function(cmd:string, folderName:string){
         });
 };
 
-
-
 program
     .usage('[options]')
     .version('0.0.5')
     .option('-i, --init', 'Init Project')
     .option('-h, --help', 'Help')
     .parse(process.argv);
-
-//
-
 
 if (program.init){
     co(function *() {
@@ -68,8 +63,8 @@ if (program.init){
         console.log("Copy files in " + folderName);
 
         ncp(__dirname+"/files/configs/","./"+folderName+"/", function (e) {
-            ncp(__dirname+"/files/examples/","./"+folderName+"/src/", function (e) {
-            });
+            ncp(__dirname+"/files/src/","./"+folderName+"/src/", function(e){});
+            ncp(__dirname+"/files/dist/","./"+folderName+"/dist/", function(e){});
 
             var file = folderName+'/package.json';
 
