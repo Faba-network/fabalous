@@ -3,25 +3,19 @@ var webpack = require('webpack');
 
 module.exports = {
     output: {
-        path: path.join(__dirname,'../../dist/browser/'),
-        filename: 'bundle.js'
+        path: path.join(__dirname,'../../dist/test/'),
+        filename: 'test.js'
     },
 
-    debug: true,
+    debug: false,
     devtool: 'source-map',
 
     resolve: {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less']
     },
     entry: {
-        vendor: [
-            'react', 'react-dom'
-        ],
-
         app: [
-            'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
-            'webpack/hot/dev-server', // "only" prevents reload on syntax errors
-            './src/A_Main.ts' // Your appʼs entry point
+            './test/T_Web.ts' // Your appʼs entry point
         ]
     },
     module: {
@@ -30,16 +24,8 @@ module.exports = {
                 loader: 'style-loader!css-loader!less-loader'
             },
             {   test: /\.tsx?$/,
-                loader: 'react-hot!babel?presets[]=es2015!ts-loader!preprocess?+CLIENT'
+                loader: 'babel?presets[]=es2015!ts-loader!preprocess?+CLIENT'
             }
         ]
-    },
-    plugins:[
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity,
-            filename: 'vendor.bundle.js'
-        })
-    ]
+    }
 };

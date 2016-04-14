@@ -7,6 +7,15 @@ var nodeModules = fs.readdirSync('node_modules')
         return ['.bin'].indexOf(x) === -1;
     });
 
+var nodeModules = {};
+fs.readdirSync('node_modules')
+    .filter(function(x) {
+        return ['.bin'].indexOf(x) === -1;
+    })
+    .forEach(function(mod) {
+        nodeModules[mod] = 'commonjs ' + mod;
+    });
+
 module.exports = {
     entry: [
         './src/A_Server.ts'
@@ -21,20 +30,8 @@ module.exports = {
         __dirname: true,
         __filename: true
     },
-    externals: [
-        function(context, request, callback) {
-            var pathStart = request.split('/')[0];
-            if (pathStart == "fabalous" || pathStart == "fabalous-login"){
-                callback();
-                return;
-            }
+    externals:nodeModules,
 
-            if (nodeModules.indexOf(pathStart) >= 0 && request != 'webpack/hot/signal.js') {
-                return callback(null, "commonjs " + request);
-            };
-            callback();
-        }
-    ],
     devtool: 'source-map',
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.

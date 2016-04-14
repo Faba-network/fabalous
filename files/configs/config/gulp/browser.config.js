@@ -4,6 +4,8 @@ var WebpackDevServer = require("webpack-dev-server");
 var path = require('path');
 
 var frontendConfig = require("./../webpack/webpack.frontend.config.js");
+var CompressionPlugin = require('compression-webpack-plugin');
+
 
 function onBuild(done) {
     return function(err, stats) {
@@ -32,6 +34,16 @@ gulp.task('frontend-build', function(done) {
     var myConfig = frontendConfig;
     myConfig.debug = false;
     myConfig.devtool = null;
+
+    myConfig.entry = {
+            vendor: [
+                'react', 'react-dom','react-router','history','material-ui'
+            ],
+            app: [
+                './src/A_Web.ts' // Your appʼs entry point
+            ]
+        };
+
     myConfig.plugins = [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -46,8 +58,13 @@ gulp.task('frontend-build', function(done) {
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify('production') }
         }),
-
-        new webpack.NoErrorsPlugin()
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity,
+            filename: 'vendor.bundle.js'
+        }),
+        new webpack.NoErrorsPlugin(),
+        new CompressionPlugin()
     ];
 
     webpack(myConfig).run(onBuild(done));

@@ -8,13 +8,4 @@ var nodemon = require('nodemon');
 require("./browser.config.js");
 require("./node.config.js");
 require("./jasmine.config.js");
-//require("./karma.config.js");
-
-
-
-var Server = require('karma').Server;
-gulp.task('testKarma', function(done) {
-    new Server({
-        configFile: __dirname + '/karma.conf.js'
-    }, done).start();
-});
+require("./karma.config.js");

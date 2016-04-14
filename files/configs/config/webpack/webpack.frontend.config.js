@@ -15,12 +15,12 @@ module.exports = {
     },
     entry: {
         vendor: [
-            'react', 'react-dom'
+            'react', 'react-dom','react-router','history','material-ui'
         ],
 
         app: [
             'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
-            'webpack/hot/dev-server', // "only" prevents reload on syntax errors
+            'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
             './src/A_Web.ts' // Your appʼs entry point
         ]
     },
@@ -34,6 +34,7 @@ module.exports = {
             }
         ]
     },
+
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
@@ -41,5 +42,6 @@ module.exports = {
             minChunks: Infinity,
             filename: 'vendor.bundle.js'
         })
+
     ]
 };

@@ -1,13 +1,13 @@
 // Karma configuration
 // Generated on Fri Feb 26 2016 11:21:50 GMT+0100 (CET)
-var webpackConfig = require('./webpack_karma.config.js');
+var webpackConfig = require('./../webpack/webpack.frontend-test.config.js');
 webpackConfig.entry = {};
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '),
+    basePath: './../../',
 
 
     // frameworks to use
@@ -17,20 +17,20 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/browser/*Spec.ts'
+      'node_modules/babel-polyfill/dist/polyfill.js',
+      'test/T_Web.ts',
+      'compiled/index.html'
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/browser/*Spec.ts': ['webpack']
+      'test/T_Web.ts': ['webpack']
     },
 
     webpack: webpackConfig,
 
     webpackMiddleware: {
-      // webpack-dev-middleware configuration
-      // i. e.
       noInfo: true
     },
 
@@ -39,25 +39,25 @@ module.exports = function(config) {
 
 
     // enable / disable colors in the output (reporters and logs)
-    //colors: true,
+    colors: true,
 
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_ERROR,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS2'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   })
-}
+};

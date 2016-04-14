@@ -2,25 +2,26 @@ var gulp = require('gulp');
 var jasmine = require('gulp-jasmine');
 var runSequence = require('run-sequence');
 var watch = require('gulp-watch');
+var webpack = require('webpack');
 
-var frontendConfig = require("./../webpack/webpack.frontend-test.config.js");
 
+var config = require("./../webpack/webpack.backend-test.config.js");
 
 gulp.task('testComp', function(done) {
-    webpack(frontendConfig, function(e, r){
+    webpack(config, function(e, r){
         done();
     });
 });
 
 gulp.task('testJasmine', function() {
-    return gulp.src('./tmp/node_test_bundle.js')
+    return gulp.src('./dist/test/node/test.js')
         .pipe(jasmine());
 });
 
 gulp.task('testNode', function() {
-    watch('**/*.ts', function(files) {
-        runSequence( 'testComp', 'testJasmine' );
-    });
+    //watch('**/*.ts', function(files) {
+    //    runSequence( 'testComp', 'testJasmine' );
+    //});
 
     runSequence( 'testComp', 'testJasmine' );
 });
