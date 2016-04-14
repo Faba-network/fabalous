@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony
+#!/usr/bin/env node
 /// <reference path="typings/commander/commander.d.ts" />
 
 import {statSync} from "fs";

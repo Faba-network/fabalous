@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony
+#!/usr/bin/env node
 "use strict";
 const fs_1 = require("fs");
 const fs_2 = require("fs");
