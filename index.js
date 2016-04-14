@@ -4,6 +4,7 @@ const fs_1 = require("fs");
 const fs_2 = require("fs");
 const ncp_1 = require("ncp");
 const child_process_1 = require("child_process");
+const fs_3 = require("fs");
 var jsonfile = require('jsonfile');
 var util = require('util');
 var program = require('commander');
@@ -30,6 +31,7 @@ program
     .usage('[options]')
     .version('0.0.5')
     .option('-i, --init', 'Init Project')
+    .option('-a, --add', 'Init Project')
     .option('-h, --help', 'Help')
     .parse(process.argv);
 if (program.init) {
@@ -61,6 +63,61 @@ if (program.init) {
             jsonfile.writeFileSync(file, obj, { spaces: 2 });
             console.log("Call npm install.... Coffee time?");
             run('npm install', folderName);
+        });
+    }).then(function (value) {
+        //console.log(value);
+        //process.exit(0);
+    }, function (err) {
+        console.error(err);
+        process.exit(1);
+    });
+}
+else if (program.add) {
+    co(function* () {
+        var confirm = prompt.confirm;
+        var name = yield prompt('Module name?: ');
+        var firstChar = name.substring(0, 1);
+        firstChar = firstChar.toUpperCase();
+        var upperName = firstChar + "" + name.substring(1);
+        firstChar = firstChar.toLowerCase();
+        var lowerName = firstChar + "" + name.substring(1);
+        var dirName = "./" + lowerName;
+        ncp_1.ncp(__dirname + "/files/module/", dirName, function (e) {
+            // COMMAND
+            try {
+                fs_3.renameSync(dirName + "/control/command/ModuleCommand.ts", dirName + "/control/command/" + upperName + "Command.ts");
+            }
+            catch (e) { }
+            // EVENT
+            try {
+                fs_3.renameSync(dirName + "/control/event/ModuleEvent.ts", dirName + "/control/event/" + upperName + "Event.ts");
+            }
+            catch (e) { }
+            // SERVICE
+            try {
+                fs_3.renameSync(dirName + "/control/service/ModuleService.ts", dirName + "/control/service/" + upperName + "Service.ts");
+            }
+            catch (e) { }
+            // Meditor
+            try {
+                fs_3.renameSync(dirName + "/control/ModuleMediator.ts", dirName + "/control/" + upperName + "Mediator.ts");
+            }
+            catch (e) { }
+            // MODEL
+            try {
+                fs_3.renameSync(dirName + "/model/ModuleModel.ts", dirName + "/model/" + upperName + "Model.ts");
+            }
+            catch (e) { }
+            // VIEW
+            try {
+                fs_3.renameSync(dirName + "/view/Module.less", dirName + "/view/" + upperName + ".less");
+            }
+            catch (e) { }
+            try {
+                fs_3.renameSync(dirName + "/view/Module.ts", dirName + "/view/" + upperName + ".ts");
+            }
+            catch (e) { }
+            process.exit(0);
         });
     }).then(function (value) {
         //console.log(value);

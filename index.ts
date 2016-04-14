@@ -5,6 +5,8 @@ import {statSync} from "fs";
 import {mkdirSync} from "fs";
 import {ncp} from "ncp";
 import {exec} from "child_process";
+import {readdirSync} from "fs";
+import {renameSync} from "fs";
 
 var jsonfile = require('jsonfile');
 var util = require('util');
@@ -36,6 +38,7 @@ program
     .usage('[options]')
     .version('0.0.5')
     .option('-i, --init', 'Init Project')
+    .option('-a, --add', 'Init Project')
     .option('-h, --help', 'Help')
     .parse(process.argv);
 
@@ -84,6 +87,66 @@ if (program.init){
         console.error(err);
         process.exit(1);
     });
+} else if(program.add){
+  co(function *() {
+    var confirm = prompt.confirm;
+
+    var name = yield prompt('Module name?: ');
+
+    var firstChar = name.substring(0,1);
+    firstChar = firstChar.toUpperCase();
+    var upperName = firstChar + "" + name.substring(1);
+    firstChar = firstChar.toLowerCase();
+    var lowerName = firstChar + "" + name.substring(1);
+
+    var dirName = "./"+lowerName;
+
+
+    ncp(__dirname+"/files/module/", dirName, function(e){
+      // COMMAND
+      try {
+        renameSync(dirName+"/control/command/ModuleCommand.ts", dirName+"/control/command/"+upperName+"Command.ts");
+      } catch(e){}
+
+      // EVENT
+      try {
+        renameSync(dirName+"/control/event/ModuleEvent.ts", dirName+"/control/event/"+upperName+"Event.ts");
+      } catch(e){}
+
+      // SERVICE
+      try {
+        renameSync(dirName+"/control/service/ModuleService.ts", dirName+"/control/service/"+upperName+"Service.ts");
+      } catch(e){}
+
+      // Meditor
+      try {
+        renameSync(dirName+"/control/ModuleMediator.ts", dirName+"/control/"+upperName+"Mediator.ts");
+      } catch(e){}
+
+      // MODEL
+      try {
+        renameSync(dirName+"/model/ModuleModel.ts", dirName+"/model/"+upperName+"Model.ts");
+      } catch(e){}
+
+      // VIEW
+      try {
+        renameSync(dirName+"/view/Module.less", dirName+"/view/"+upperName+".less");
+      } catch(e){}
+
+      try {
+        renameSync(dirName+"/view/Module.ts", dirName+"/view/"+upperName+".ts");
+      } catch(e){}
+
+      process.exit(0);
+    });
+
+  }).then(function (value) {
+    //console.log(value);
+    //process.exit(0);
+  }, function (err) {
+    console.error(err);
+    process.exit(1);
+  });
 }
 
 

@@ -8,5 +8,9 @@
     },
     "exclude": [
         "node_modules"
+    ],
+    "files": [
+      "./index.ts",
+      "./typings/tsd.d.ts"
     ]
 }
