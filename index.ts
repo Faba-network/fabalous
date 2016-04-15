@@ -100,9 +100,8 @@ if (program.init){
     firstChar = firstChar.toLowerCase();
     var lowerName = firstChar + "" + name.substring(1);
 
-    var dirName = "./"+lowerName;
-
-
+    var dirName = "./src/"+lowerName;
+    
     ncp(__dirname+"/files/module/", dirName, function(e){
       // COMMAND
       try {
