@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-"use strict";
-const fs_1 = require("fs");
-const fs_2 = require("fs");
-const ncp_1 = require("ncp");
-const child_process_1 = require("child_process");
-const fs_3 = require("fs");
+var fs_1 = require("fs");
+var fs_2 = require("fs");
+var ncp_1 = require("ncp");
+var child_process_1 = require("child_process");
+var fs_3 = require("fs");
 var jsonfile = require('jsonfile');
 var util = require('util');
 var program = require('commander');
@@ -81,7 +80,7 @@ else if (program.add) {
         var upperName = firstChar + "" + name.substring(1);
         firstChar = firstChar.toLowerCase();
         var lowerName = firstChar + "" + name.substring(1);
-        var dirName = "./" + lowerName;
+        var dirName = "./src/" + lowerName;
         ncp_1.ncp(__dirname + "/files/module/", dirName, function (e) {
             // COMMAND
             try {
