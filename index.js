@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-var fs_1 = require("fs");
-var fs_2 = require("fs");
-var ncp_1 = require("ncp");
-var child_process_1 = require("child_process");
-var fs_3 = require("fs");
+"use strict";
+const fs_1 = require("fs");
+const fs_2 = require("fs");
+const ncp_1 = require("ncp");
+const child_process_1 = require("child_process");
+const fs_3 = require("fs");
 var jsonfile = require('jsonfile');
 var util = require('util');
 var program = require('commander');
@@ -73,38 +74,39 @@ if (program.init) {
 }
 else if (program.add) {
     co(function* () {
-        var confirm = prompt.confirm;
         var name = yield prompt('Module name?: ');
+        console.log(name);
         var firstChar = name.substring(0, 1);
         firstChar = firstChar.toUpperCase();
         var upperName = firstChar + "" + name.substring(1);
         firstChar = firstChar.toLowerCase();
         var lowerName = firstChar + "" + name.substring(1);
         var dirName = "./src/" + lowerName;
+        console.log(__dirname);
         ncp_1.ncp(__dirname + "/files/module/", dirName, function (e) {
             // COMMAND
             try {
-                fs_3.renameSync(dirName + "/control/command/ModuleCommand.ts", dirName + "/control/command/" + upperName + "Command.ts");
+                fs_3.renameSync(dirName + "/command/ModuleCommand.ts", dirName + "/control/command/" + upperName + "Command.ts");
             }
             catch (e) { }
             // EVENT
             try {
-                fs_3.renameSync(dirName + "/control/event/ModuleEvent.ts", dirName + "/control/event/" + upperName + "Event.ts");
+                fs_3.renameSync(dirName + "/event/ModuleEvent.ts", dirName + "/control/event/" + upperName + "Event.ts");
             }
             catch (e) { }
             // SERVICE
             try {
-                fs_3.renameSync(dirName + "/control/service/ModuleService.ts", dirName + "/control/service/" + upperName + "Service.ts");
+                fs_3.renameSync(dirName + "/service/ModuleService.ts", dirName + "/control/service/" + upperName + "Service.ts");
             }
             catch (e) { }
             // Meditor
             try {
-                fs_3.renameSync(dirName + "/control/ModuleMediator.ts", dirName + "/control/" + upperName + "Mediator.ts");
+                fs_3.renameSync(dirName + "/ModuleMediator.ts", dirName + "/control/" + upperName + "Mediator.ts");
             }
             catch (e) { }
             // MODEL
             try {
-                fs_3.renameSync(dirName + "/model/ModuleModel.ts", dirName + "/model/" + upperName + "Model.ts");
+                fs_3.renameSync(dirName + "/ModuleModel.ts", dirName + "/model/" + upperName + "Model.ts");
             }
             catch (e) { }
             // VIEW
@@ -119,10 +121,12 @@ else if (program.add) {
             process.exit(0);
         });
     }).then(function (value) {
-        //console.log(value);
-        //process.exit(0);
+        process.exit(0);
     }, function (err) {
         console.error(err);
         process.exit(1);
     });
+}
+else {
+    console.log("Help?");
 }

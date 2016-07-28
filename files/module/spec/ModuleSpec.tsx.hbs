@@ -1,0 +1,30 @@
+import * as React from "react";
+import {mount} from "enzyme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import FabaCore from "fabalous-core/core/FabaCore";
+var TestUtils = require("react-addons-test-utils");
+
+describe("{{MODULE_VIEW}} View", function() {
+    var wrapper;
+    var instance:{{MODULE_VIEW}};
+
+    let injectTapEventPlugin = require("react-tap-event-plugin");
+    injectTapEventPlugin();
+
+    FabaCore.addMediator(new {{MODULE_MEDIATOR}}());
+
+    beforeEach(()=> {
+        wrapper = mount(
+        <MuiThemeProvider muiTheme={getMuiTheme()}>
+            <{{MODULE_VIEW}} />
+        </MuiThemeProvider>
+        );
+
+        instance = wrapper.find({{MODULE_VIEW}}).get(0) as {{MODULE_VIEW}};
+    });
+
+    it("{{MODULE_VIEW}} should be there", function() {
+        expect(instance).toBeDefined();
+    });
+});

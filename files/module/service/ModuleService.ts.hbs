@@ -1,0 +1,8 @@
+import FabaSerivce from "fabalous-core/core/FabaService";
+
+export default class {{MODULE_NAME}} extends FabaSerivce{
+  async execute(event:{{MODULE_EVENT}}) {
+    event.test = "result";
+    super.sendToClient(event);
+  }
+}

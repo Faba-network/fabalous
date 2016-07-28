@@ -1,0 +1,27 @@
+import * as React from "react";
+import {observer} from "mobx-react/index";
+var classNames = require('classnames');
+require('./Login.less');
+
+@observer
+export default class {{MODULE_VIEW}} extends React.Component<{},{}> {
+    className:string = "{{MODULE_VIEW}}";
+    state = {
+    };
+
+    props;
+
+    constructor(props) {
+        super(props);
+
+        // Bind functions
+        //this.loginBtHandler = this.loginBtHandler.bind(this);
+    }
+
+    render() {
+        return (
+            <div className={`center ${this.className}`}>
+            </div>
+        )
+    }
+}

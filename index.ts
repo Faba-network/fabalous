@@ -90,9 +90,10 @@ if (program.init){
     });
 } else if(program.add){
   co(function *() {
-    var confirm = prompt.confirm;
-
     var name = yield prompt('Module name?: ');
+
+    console.log(name);
+
 
     var firstChar = name.substring(0,1);
     firstChar = firstChar.toUpperCase();
@@ -101,31 +102,31 @@ if (program.init){
     var lowerName = firstChar + "" + name.substring(1);
 
     var dirName = "./src/"+lowerName;
-    
+    console.log(__dirname);
     ncp(__dirname+"/files/module/", dirName, function(e){
       // COMMAND
       try {
-        renameSync(dirName+"/control/command/ModuleCommand.ts", dirName+"/control/command/"+upperName+"Command.ts");
+        renameSync(dirName+"/command/ModuleCommand.ts", dirName+"/control/command/"+upperName+"Command.ts");
       } catch(e){}
 
       // EVENT
       try {
-        renameSync(dirName+"/control/event/ModuleEvent.ts", dirName+"/control/event/"+upperName+"Event.ts");
+        renameSync(dirName+"/event/ModuleEvent.ts", dirName+"/control/event/"+upperName+"Event.ts");
       } catch(e){}
 
       // SERVICE
       try {
-        renameSync(dirName+"/control/service/ModuleService.ts", dirName+"/control/service/"+upperName+"Service.ts");
+        renameSync(dirName+"/service/ModuleService.ts", dirName+"/control/service/"+upperName+"Service.ts");
       } catch(e){}
 
       // Meditor
       try {
-        renameSync(dirName+"/control/ModuleMediator.ts", dirName+"/control/"+upperName+"Mediator.ts");
+        renameSync(dirName+"/ModuleMediator.ts", dirName+"/control/"+upperName+"Mediator.ts");
       } catch(e){}
 
       // MODEL
       try {
-        renameSync(dirName+"/model/ModuleModel.ts", dirName+"/model/"+upperName+"Model.ts");
+        renameSync(dirName+"/ModuleModel.ts", dirName+"/model/"+upperName+"Model.ts");
       } catch(e){}
 
       // VIEW
@@ -141,12 +142,14 @@ if (program.init){
     });
 
   }).then(function (value) {
-    //console.log(value);
-    //process.exit(0);
+
+    process.exit(0);
   }, function (err) {
     console.error(err);
     process.exit(1);
   });
+} else {
+  console.log("Help?");
 }
 
 
