@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@fabalous/core": "*",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
     "commander": "^2.9.0",
     "jsonfile": "^2.2.3",
     "ncp": "^2.0.0",
-    "handlebars": "*"
+    "handlebars": "*",
+    "typescript": "^2.1.4"
   },
   "files": [
     "./files/",
@@ -17,7 +19,9 @@
   ],
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bulild":"tsc",
+    "develop": "tsc --watch"
   },
   "repository": {
     "type": "git",

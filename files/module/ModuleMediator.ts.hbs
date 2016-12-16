@@ -4,6 +4,15 @@ import {IFabaMediator} from "fabalous-core/core/IFabaMediator";
 export default class {{MODULE_MEDIATOR}} extends FabaMediator implements IFabaMediator{
     constructor() {
         super();
+
+        if (module.hot) {
+            module.hot.accept([
+                {{MODULE_COMMAND}}
+            ], () => {
+                this.cmdList = new Array<Object>();
+                this.registerCommands();
+            });
+        }
     }
 
     registerCommands():void {

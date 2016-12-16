@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/// <reference path="typings/commander/commander.d.ts" />
+/// <reference path="../typings/commander/commander.d.ts" />
 
 import {statSync} from "fs";
 import {mkdirSync} from "fs";
@@ -37,7 +37,7 @@ var run = function(cmd:string, folderName:string){
 
 program
     .usage('[options]')
-    .version('0.0.5')
+    .version('0.1.0')
     .option('-i, --init', 'Init Project')
     .option('-a, --add', 'Init Project')
     .option('-h, --help', 'Help')
@@ -149,6 +149,7 @@ if (program.init){
     process.exit(1);
   });
 } else {
+
   console.log("Help?");
 }
 

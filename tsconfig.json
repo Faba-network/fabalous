@@ -1,16 +1,19 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
+        "target": "es5",
         "noImplicitAny": false,
         "sourceMap": false,
-        "noEmit":false
+        "noEmit":false,
+        "outDir": "./build",
+        "rootDir": "./src/",
+        "moduleResolution": "node",
+        "lib":[
+            "es6"
+        ]
     },
+
     "exclude": [
-        "node_modules"
-    ],
-    "files": [
-      "./index.ts",
-      "./typings/tsd.d.ts"
+        "node_modules",
+        "files"
     ]
 }

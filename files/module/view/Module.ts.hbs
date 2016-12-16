@@ -1,15 +1,17 @@
 import * as React from "react";
 import {observer} from "mobx-react/index";
 var classNames = require('classnames');
-require('./Login.less');
+require('./{{MODULE_VIEW}}.less');
+
+interface I{{MODULE_VIEW}}{
+    model:{{MODULE_STORE}}
+}
 
 @observer
 export default class {{MODULE_VIEW}} extends React.Component<{},{}> {
     className:string = "{{MODULE_VIEW}}";
-    state = {
-    };
 
-    props;
+    props:I{{MODULE_VIEW}};
 
     constructor(props) {
         super(props);
