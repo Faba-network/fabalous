@@ -1,8 +1,8 @@
 import FabaCommand from "@fabalous/core/FabaCommand";
 import SearchPackageJson from "../event/GetPackageJsonEvent";
-import {IStore} from "../FabalousStore";
+import FabalousStore from "../FabalousStore";
 
-export default class SearchPackageJsonCommand extends FabaCommand<IStore> {
+export default class SearchPackageJsonCommand extends FabaCommand<FabalousStore> {
     async execute(event: SearchPackageJson) {
 
     }

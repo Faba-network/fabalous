@@ -5,5 +5,6 @@
     <option name="mainFilePath" value="C:\Projekte\fabalous\index.ts" />
     <option name="useMainFile" value="true" />
     <option name="useConfig" value="true" />
+    <option name="showAllErrors" value="true" />
   </component>
 </project>

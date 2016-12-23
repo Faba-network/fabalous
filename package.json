@@ -5,12 +5,15 @@
   "main": "index.js",
   "dependencies": {
     "@fabalous/core": "*",
+    "cmdify": "0.0.4",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
     "commander": "^2.9.0",
+    "fs-extra": "^1.0.0",
+    "handlebars": "*",
+    "inquirer": "*",
     "jsonfile": "^2.2.3",
     "ncp": "^2.0.0",
-    "handlebars": "*",
     "typescript": "^2.1.4"
   },
   "files": [
@@ -20,7 +23,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bulild":"tsc",
+    "bulild": "tsc",
     "develop": "tsc --watch"
   },
   "repository": {
@@ -35,5 +38,13 @@
   "homepage": "https://github.com/Faba-network/fabalous#readme",
   "bin": {
     "fabalous": "./index.js"
+  },
+  "fabalous": {
+    "codeStructure": {
+      "command": "${moduleName}/command/${fileName}Command.ts",
+      "event": "${moduleName}/event/${fileName}Event.ts",
+      "service": "${moduleName}/service/${fileName}Service.ts",
+      "mediator": "${moduleName}/${fileName}Mediator.ts"
+    }
   }
 }

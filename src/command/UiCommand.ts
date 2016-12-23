@@ -1,23 +1,25 @@
 import FabaCommand from "@fabalous/core/FabaCommand";
 import FabaEvent from "@fabalous/core/FabaEvent";
-import {IStore} from "../FabalousStore";
 import ShowMainMenuEvent from "../event/ShowMainMenuEvent";
 import CreateAppStep1DialogEvent from "../event/CreateAppStep1DialogEvent";
 import CreateAppStep2DialogEvent from "../event/CreateAppStep2DialogEvent";
 import CreateAppStep3DialogEvent from "../event/CreateAppStep3DialogEvent";
+import FabalousStore from "../FabalousStore";
+import ShowCreateModuleDialogEvent from "../event/ShowCreateModuleDialogEvent";
 
-export default class UiCommand extends FabaCommand<IStore> {
+export default class UiCommand extends FabaCommand<FabalousStore> {
     inquirer = require("inquirer");
-
-    constructor(store: IStore) {
-        super(store);
-    }
-
     async execute(event: FabaEvent) {
         switch (event.name) {
             case ShowMainMenuEvent.name:
                 this.showMainMenu();
                 break;
+
+
+            case ShowCreateModuleDialogEvent.name:
+                let data = await this.showCreateModule();
+                break;
+
             case CreateAppStep1DialogEvent.name: {
                 let ev: CreateAppStep1DialogEvent = event as CreateAppStep1DialogEvent;
                 let data = await this.showAppDialogStep1();
@@ -25,6 +27,7 @@ export default class UiCommand extends FabaCommand<IStore> {
                 ev.callBack();
                 break;
             }
+
             case CreateAppStep2DialogEvent.name: {
                 let ev: CreateAppStep2DialogEvent = event as CreateAppStep2DialogEvent;
                 let data = await this.showAppDialogStep2();
@@ -32,6 +35,7 @@ export default class UiCommand extends FabaCommand<IStore> {
                 ev.callBack();
                 break;
             }
+
             case CreateAppStep3DialogEvent.name: {
                 /*
                 let ev: CreateAppStep3DialogEvent = event as CreateAppStep3DialogEvent;
@@ -41,15 +45,49 @@ export default class UiCommand extends FabaCommand<IStore> {
                 break;
                 */
             }
+
+
         }
+    }
+
+    private showCreateModule(){
+        return this.inquirer.prompt([
+            {
+                type: 'text',
+                message: 'Whats the name of your new Module?',
+                name: 'moduleName'
+            }
+        ]);
+    }
+
+    private showCreateECSModule(){
+        return this.inquirer.prompt([
+            {
+                type: 'text',
+                message: 'Please enter the module name?',
+                name: 'moduleName'
+            },
+            {
+                type: 'text',
+                message: 'Please enter the Event-base name?',
+                name: 'eventBaseName'
+            },
+        ]);
     }
 
     private showMainMenu() {
         this.inquirer.prompt([
             {
-                type: 'text',
-                message: '(1 / 5) Whats the name of your new Fabalous Project?',
-                name: 'projectName'
+                type: 'list',
+                name: 'theme',
+                message: 'What do you want to do?',
+                choices: [
+                    'Create new Module',
+                    'Create Event / Command / Service',
+                    new this.inquirer.Separator(),
+                    'Add Runtime',
+                    'Show Help'
+                ]
             }
         ]);
     }

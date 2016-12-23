@@ -1,27 +1,41 @@
 import FabaCommand from "@fabalous/core/FabaCommand";
 import InitFabalousEvent from "../event/InitFabalousEvent";
-import {IStore} from "../FabalousStore";
 import GetPackageJsonEvent from "../event/GetPackageJsonEvent";
 import CreateAppEvent from "../event/CreateAppEvent";
 import ShowMainMenuEvent from "../event/ShowMainMenuEvent";
 import CreateAppDialogEvent from "../event/CreateAppDialogEvent";
 import CreateAppStep1DialogEvent from "../event/CreateAppStep1DialogEvent";
 import CreateAppStep2DialogEvent from "../event/CreateAppStep2DialogEvent";
+import FabalousStore from "../FabalousStore";
+import {ShowMainMenuEventTypes} from "../event/ShowMainMenuEvent";
+import CreateModuleEvent from "../event/CreateModuleEvent";
+import CreateEventEvent from "../event/CreateEventEvent";
 
-export default class InitFabalousCommand extends FabaCommand<IStore> {
+export default class InitFabalousCommand extends FabaCommand<FabalousStore> {
     async execute(event: InitFabalousEvent) {
-        // Check i there is a PackageJosn and get it
+        // Check i there is a PackageJson and get it
         await new GetPackageJsonEvent().dispatch();
-
-        if (this.store.data.json){
+        if (this.data.json){
             // Json is alreadey avaible
-            new ShowMainMenuEvent().dispatch();
+            let mainMenu:ShowMainMenuEvent = await new ShowMainMenuEvent().dispatch();
+            switch (mainMenu.data){
+                case ShowMainMenuEventTypes.CREATE_MODULE:
+                    new CreateModuleEvent().dispatch();
+                    break;
+                case ShowMainMenuEventTypes.CREATE_EVENT:
+                    new CreateEventEvent().dispatch();
+                    break;
+                case ShowMainMenuEventTypes.ADD_RUNTIME:
+                    break;
+                case ShowMainMenuEventTypes.SHOW_HELP:
+                    break;
+            }
         } else {
             // Json is missing create new Project
             var step1:CreateAppStep1DialogEvent = await new CreateAppStep1DialogEvent().dispatch();
             var step2:CreateAppStep2DialogEvent = await new CreateAppStep2DialogEvent().dispatch();
-            this.store.set("step1Data", step1);
-            this.store.set("step2Data", step2);
+            this.setStore("step1Data", step1);
+            this.setStore("step2Data", step2);
             new CreateAppEvent().dispatch();
         }
     }

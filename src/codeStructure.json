@@ -1,0 +1,6 @@
+{
+  "command": "${moduleName}/command/${fileName}Command.ts",
+  "event": "${moduleName}/event/${fileName}Event.ts",
+  "service": "${moduleName}/service/${fileName}Service.ts",
+  "mediator": "${moduleName}/${fileName}Mediator.ts"
+}
