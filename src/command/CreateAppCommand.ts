@@ -1,12 +1,11 @@
-import FabaCommand from "@fabalous/core/FabaCommand";
 import CreateAppEvent from "../event/CreateAppEvent";
 import CreatePackageJsonEvent from "../event/CreatePackageJsonEvent";
 import FabalousStore from "../FabalousStore";
-import InstallNPMDepsEvent from "../event/InstallNPMDepsEvent";
+import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 const chalk = require('chalk');
 
 
-export default class CreateAppCommand extends FabaCommand<FabalousStore> {
+export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
     fs = require('fs-extra');
     path = require('path');
 

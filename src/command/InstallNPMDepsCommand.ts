@@ -1,8 +1,8 @@
-import FabaCommand from "@fabalous/core/FabaCommand";
 import InstallNPMDepsEvent from "../event/InstallNPMDepsEvent";
 import FabalousStore from "../FabalousStore";
+import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 
-export default class InstallNPMDepsCommand extends FabaCommand<FabalousStore> {
+export default class InstallNPMDepsCommand extends FabaCoreCommand<FabalousStore> {
     async execute(event: InstallNPMDepsEvent) {
         const cmdify = require('cmdify');
         const spawn = require('child_process').spawn;

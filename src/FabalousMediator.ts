@@ -1,24 +1,33 @@
-import FabaMediator from "@fabalous/core/FabaMediator";
-import {IFabaMediator} from "@fabalous/core/IFabaMediator";
-/**
- * Created by creativecode on 13.12.16.
- */
+import FabaCoreMediator from "@fabalous/core/FabaCoreMediator";
+import InitFabalousEvent from "./event/InitFabalousEvent";
+import InitFabalousCommand from "./command/InitFabalousCommand";
+import GetPackageJsonEvent from "./event/GetPackageJsonEvent";
+import GetPackageJsonCommand from "./command/GetPackageJsonCommand";
+import ShowMainMenuEvent from "./event/ShowMainMenuEvent";
+import CreatePackageJsonEvent from "./event/CreatePackageJsonEvent";
+import CreatePackageJsonCommand from "./command/CreatePackageJsonCommand";
+import CreateModuleEvent from "./event/CreateModuleEvent";
+import CreateModuleCommand from "./command/CreateModuleCommand";
+import CreateAppEvent from "./event/CreateAppEvent";
+import CreateAppCommand from "./command/CreateAppCommand";
+import CreateAppStep1DialogEvent from "./event/CreateAppStep1DialogEvent";
+import CreateAppStep2DialogEvent from "./event/CreateAppStep2DialogEvent";
+import CreateAppStep3DialogEvent from "./event/CreateAppStep3DialogEvent";
+import UiCommand from "./command/UiCommand";
 
-export default class FabalousMediator extends FabaMediator implements IFabaMediator{
+export default class FabalousMediator extends FabaCoreMediator{
 
     registerCommands(): void {
-        super.registerCommands();
-        this.addCommand(require("./event/InitFabalousEvent"), require("./command/InitFabalousCommand"));
-        this.addCommand(require("./event/GetPackageJsonEvent"), require("./command/GetPackageJsonCommand"));
-        this.addCommand(require("./event/ShowMainMenuEvent"), require("./command/"));
-        this.addCommand(require("./event/CreatePackageJsonEvent"), require("./command/CreatePackageJsonCommand"));
+        this.addCommand(InitFabalousEvent, InitFabalousCommand);
+        this.addCommand(GetPackageJsonEvent, GetPackageJsonCommand);
+        this.addCommand(ShowMainMenuEvent, UiCommand);
+        this.addCommand(CreatePackageJsonEvent, CreatePackageJsonCommand);
 
-        this.addCommand(require("./event/CreateModuleEvent"), require("./command/CreateModuleCommand"));
+        this.addCommand(CreateModuleEvent, CreateModuleCommand);
 
-
-        this.addCommand(require("./event/CreateAppEvent"), require("./command/CreateAppCommand"));
-        this.addCommand(require("./event/CreateAppStep1DialogEvent"), require("./command/UiCommand"));
-        this.addCommand(require("./event/CreateAppStep2DialogEvent"), require("./command/UiCommand"));
-        this.addCommand(require("./event/CreateAppStep3DialogEvent"), require("./command/UiCommand"));
+        this.addCommand(CreateAppEvent, CreateAppCommand);
+        this.addCommand(CreateAppStep1DialogEvent, UiCommand);
+        this.addCommand(CreateAppStep2DialogEvent, UiCommand);
+        this.addCommand(CreateAppStep3DialogEvent, UiCommand);
     }
 }

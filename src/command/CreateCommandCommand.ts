@@ -1,8 +1,8 @@
-import FabaCommand from "@fabalous/core/FabaCommand";
 import CreateCommandEvent from "../event/CreateCommandEvent";
 import FabalousStore from "../FabalousStore";
+import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 
-export default class CreateCommandCommand extends FabaCommand<FabalousStore> {
+export default class CreateCommandCommand extends FabaCoreCommand<FabalousStore> {
     async execute(event: CreateCommandEvent) {
 
     }

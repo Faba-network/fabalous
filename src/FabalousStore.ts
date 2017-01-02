@@ -1,17 +1,17 @@
 export default class FabalousStore{
-    readonly parsedPackage:any;
+    parsedPackage:any;
 
-    readonly testPath = "/users/creativecode/Projekte/fab-test/";
+    testPath = "/users/creativecode/Projekte/fab-test/";
 
-    readonly firstName:string = "firs";
-    readonly lastName:string = "sec";
+    firstName:string = "firs";
+    lastName:string = "sec";
 
-    readonly json:any = true;
+    json:any = false;
 
-    readonly step1Data:any;
-    readonly step2Data:any;
+    step1Data:any;
+    step2Data:any;
 
-    readonly mainMenuData:any;
+    mainMenuData:any;
 
     get fullname():string{
         return `${this.firstName}  ${this.lastName}`;

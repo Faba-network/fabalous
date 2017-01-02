@@ -1,4 +1,3 @@
-import FabaCommand from "@fabalous/core/FabaCommand";
 import FabaEvent from "@fabalous/core/FabaEvent";
 import ShowMainMenuEvent from "../event/ShowMainMenuEvent";
 import CreateAppStep1DialogEvent from "../event/CreateAppStep1DialogEvent";
@@ -6,8 +5,9 @@ import CreateAppStep2DialogEvent from "../event/CreateAppStep2DialogEvent";
 import CreateAppStep3DialogEvent from "../event/CreateAppStep3DialogEvent";
 import FabalousStore from "../FabalousStore";
 import ShowCreateModuleDialogEvent from "../event/ShowCreateModuleDialogEvent";
+import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 
-export default class UiCommand extends FabaCommand<FabalousStore> {
+export default class UiCommand extends FabaCoreCommand<FabalousStore> {
     inquirer = require("inquirer");
     async execute(event: FabaEvent) {
         switch (event.name) {
@@ -105,6 +105,9 @@ export default class UiCommand extends FabaCommand<FabalousStore> {
                 name: 'libs',
                 choices: [
                     new this.inquirer.Separator(' = Runtimes = '),
+                    {
+                        name: 'Node (Server)'
+                    },
                     {
                         name: 'Web (React)'
                     },

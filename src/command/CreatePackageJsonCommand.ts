@@ -1,8 +1,8 @@
-import FabaCommand from "@fabalous/core/FabaCommand";
 import CreatePackageJsonEvent from "../event/CreatePackageJsonEvent";
 import FabalousStore from "../FabalousStore";
+import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 
-export default class CreatePackageJsonCommand extends FabaCommand<FabalousStore> {
+export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousStore> {
     fs = require('fs-extra');
 
     async execute(event: CreatePackageJsonEvent) {
