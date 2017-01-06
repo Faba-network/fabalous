@@ -14,20 +14,33 @@ import CreateAppStep1DialogEvent from "./event/CreateAppStep1DialogEvent";
 import CreateAppStep2DialogEvent from "./event/CreateAppStep2DialogEvent";
 import CreateAppStep3DialogEvent from "./event/CreateAppStep3DialogEvent";
 import UiCommand from "./command/UiCommand";
+import HandleMainMenuEvent from "./event/HandleMainMenuEvent";
+import InstallNPMDepsEvent from "./event/InstallNPMDepsEvent";
+import InstallNPMDepsCommand from "./command/InstallNPMDepsCommand";
+import ShowCreateModuleDialogEvent from "./event/ShowCreateModuleDialogEvent";
+import ShowCreateEveCmdEvent from "./event/ShowCreateEveCmdEvent";
+import CreateEveCmdEvent from "./event/CreateEveCmdEvent";
+import CreateEveCmdCommand from "./command/CreateEveCmdCommand";
 
 export default class FabalousMediator extends FabaCoreMediator{
 
     registerCommands(): void {
         this.addCommand(InitFabalousEvent, InitFabalousCommand);
         this.addCommand(GetPackageJsonEvent, GetPackageJsonCommand);
-        this.addCommand(ShowMainMenuEvent, UiCommand);
         this.addCommand(CreatePackageJsonEvent, CreatePackageJsonCommand);
+        this.addCommand(InstallNPMDepsEvent, InstallNPMDepsCommand);
 
         this.addCommand(CreateModuleEvent, CreateModuleCommand);
+        this.addCommand(CreateEveCmdEvent, CreateEveCmdCommand);
 
         this.addCommand(CreateAppEvent, CreateAppCommand);
         this.addCommand(CreateAppStep1DialogEvent, UiCommand);
         this.addCommand(CreateAppStep2DialogEvent, UiCommand);
         this.addCommand(CreateAppStep3DialogEvent, UiCommand);
+        this.addCommand(ShowMainMenuEvent, UiCommand);
+        this.addCommand(HandleMainMenuEvent, UiCommand);
+
+        this.addCommand(ShowCreateModuleDialogEvent, UiCommand);
+        this.addCommand(ShowCreateEveCmdEvent, UiCommand);
     }
 }

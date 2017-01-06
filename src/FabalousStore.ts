@@ -6,7 +6,12 @@ export default class FabalousStore{
     firstName:string = "firs";
     lastName:string = "sec";
 
+    // PackageJson
     json:any = false;
+
+    // Runtimes
+    runtimes:Array<string> = ["web", "node"];
+
 
     step1Data:any;
     step2Data:any;

@@ -6,24 +6,43 @@ import CreateAppStep3DialogEvent from "../event/CreateAppStep3DialogEvent";
 import FabalousStore from "../FabalousStore";
 import ShowCreateModuleDialogEvent from "../event/ShowCreateModuleDialogEvent";
 import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
+import CreateModuleEvent from "../event/CreateModuleEvent";
+import ShowCreateEveCmdEvent from "../event/ShowCreateEveCmdEvent";
+import CreateEveCmdEvent from "../event/CreateEveCmdEvent";
 
+const chalk = require('chalk');
 export default class UiCommand extends FabaCoreCommand<FabalousStore> {
     inquirer = require("inquirer");
     async execute(event: FabaEvent) {
         switch (event.name) {
             case ShowMainMenuEvent.name:
-                this.showMainMenu();
+                let choice = await this.showMainMenu();
+                console.log(choice);
+                switch(choice.menu){
+                    case `Create new Module`:
+                        new CreateModuleEvent().dispatch();
+                    case `Create Event / Command / Service`:
+                        new CreateEveCmdEvent().dispatch();
+                    break;
+                }
                 break;
-
 
             case ShowCreateModuleDialogEvent.name:
-                let data = await this.showCreateModule();
+                let ev: ShowCreateModuleDialogEvent = event as ShowCreateModuleDialogEvent;
+                ev.data = await this.showCreateModule();
+                ev.callBack();
                 break;
+
+            case ShowCreateEveCmdEvent.name:{
+                let ev:ShowCreateModuleDialogEvent = event as ShowCreateModuleDialogEvent;
+                ev.data = await this.showCreateECSModule();
+                ev.callBack();
+                break;
+            }
 
             case CreateAppStep1DialogEvent.name: {
                 let ev: CreateAppStep1DialogEvent = event as CreateAppStep1DialogEvent;
-                let data = await this.showAppDialogStep1();
-                ev.data = data;
+                ev.data = await this.showAppDialogStep1();
                 ev.callBack();
                 break;
             }
@@ -76,16 +95,21 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
     }
 
     private showMainMenu() {
-        this.inquirer.prompt([
+        console.log();
+        console.log(chalk.bold(chalk.magenta('FABALOUS - Main Menu')));
+        console.log(new this.inquirer.Separator().line);
+        return this.inquirer.prompt([
             {
                 type: 'list',
-                name: 'theme',
+                name: 'menu',
                 message: 'What do you want to do?',
                 choices: [
                     'Create new Module',
                     'Create Event / Command / Service',
+                    'Create View',
                     new this.inquirer.Separator(),
                     'Add Runtime',
+                    'Add External Libs',
                     'Show Help'
                 ]
             }
@@ -96,46 +120,26 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
         return this.inquirer.prompt([
             {
                 type: 'text',
-                message: '(1 / 5) Whats the name of your new Fabalous Project?',
+                message: '(1 / 4) Whats the name of your new Fabalous Project?',
                 name: 'projectName'
             },
             {
                 type: 'checkbox',
-                message: '(2 / 5) Core Libraries',
+                message: '(2 / 4) Core Libraries',
                 name: 'libs',
                 choices: [
                     new this.inquirer.Separator(' = Runtimes = '),
-                    {
-                        name: 'Node (Server)'
-                    },
-                    {
-                        name: 'Web (React)'
-                    },
-                    {
-                        name: 'Native (React Native)'
-                    },
-                    {
-                        name: 'Web App (Phonegap)'
-                    },
-                    {
-                        name: 'Desktop (Electron)'
-                    },
+                    { name: 'Node (Server)'},
+                    { name: 'Web (React)'},
+                    { name: 'Native (React Native)'},
+                    { name: 'VR (React VR)'},
+                    { name: 'Web App (Phonegap)'},
+                    { name: 'Desktop (Electron)'},
+
                     new this.inquirer.Separator(' = Testing = '),
-                    {
-                        name: 'Specs (Jest)',
-                        checked: true
-                    },
-                    {
-                        name: 'E2E (Karma / Nightwatch)'
-                    },
-                    {
-                        name: 'CSS Regression'
-                    },
-                    new this.inquirer.Separator(' = Utils = '),
-                    {
-                        name: 'React Storybook',
-                        checked: false
-                    }
+                    { name: 'TDD / Specs (Jest)'},
+                    { name: 'E2E (Karma / Nightwatch)'},
+                    { name: 'CSS Regression'}
                 ]
             }
         ]);

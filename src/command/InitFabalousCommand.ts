@@ -33,8 +33,8 @@ export default class InitFabalousCommand extends FabaCoreCommand<FabalousStore> 
             // Json is missing create new Project
             var step1:CreateAppStep1DialogEvent = await new CreateAppStep1DialogEvent().dispatch();
             var step2:CreateAppStep2DialogEvent = await new CreateAppStep2DialogEvent().dispatch();
-            this.data.step1Data = step1;
-            this.data.step2Data = step2;
+            this.data.step1Data = step1.data;
+            this.data.step2Data = step2.data;
             new CreateAppEvent().dispatch();
         }
     }
