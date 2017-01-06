@@ -7,7 +7,7 @@ export interface IRoutes {
 export default class Routes {
     static INDEX: IRoutes = {
         route: "/", module: async(): Promise<void> => {
-            return System.import("./app/index");
+            return System.import("@fabalous/runtime-web/initModule/index");
         }
     };
 

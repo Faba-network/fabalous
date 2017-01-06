@@ -13,7 +13,6 @@
             "es7", "dom"
         ]
     },
-
     "exclude": [
         "node_modules",
         "files"

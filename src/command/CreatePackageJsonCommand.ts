@@ -71,11 +71,12 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
     copyStarterFiles(deps: Array<string>){
         let fs = require('fs-extra');
 
+
         fs.copySync(`./../files/src/Routes.ts`,`${this.data.testPath}src/common/Routes.ts`);
         fs.copySync(`./../files/tsconfig.json`,`${this.data.testPath}tsconfig.json`);
         fs.copySync(`./../files/gitignore`,`${this.data.testPath}.gitignore`);
         fs.copySync(`./../files/npmignore`,`${this.data.testPath}.npmignore`);
-
+        fs.copySync(`./../files/gulpfile.js`,`${this.data.testPath}gulpfile.js`);
         for (let dep of deps) {
             switch (dep) {
                 case "Node (Server)":

@@ -14,4 +14,3 @@ class A_CLI extends FabaCore{
 
 const appStore:FabaStore<FabalousStore> = new FabaStore<FabalousStore>(new FabalousStore());
 new A_CLI(appStore);
-
