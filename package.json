@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/Faba-network/fabalous#readme",
   "bin": {
-    "fabalous": "./index.js"
+    "fabalous": "./build/A_CLI.js"
   },
   "fabalous": {
     "codeStructure": {
