@@ -21,8 +21,13 @@ import ShowCreateModuleDialogEvent from "./event/ShowCreateModuleDialogEvent";
 import ShowCreateEveCmdEvent from "./event/ShowCreateEveCmdEvent";
 import CreateEveCmdEvent from "./event/CreateEveCmdEvent";
 import CreateEveCmdCommand from "./command/CreateEveCmdCommand";
+import FabaEvent from "@fabalous/core/FabaEvent";
+import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 
 export default class FabalousMediator extends FabaCoreMediator{
+    addCommand(event: any, command: typeof FabaCoreCommand): void {
+        super.addCommand(event, command);
+    }
 
     registerCommands(): void {
         this.addCommand(InitFabalousEvent, InitFabalousCommand);
