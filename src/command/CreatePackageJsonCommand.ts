@@ -2,6 +2,8 @@ import CreatePackageJsonEvent from "../event/CreatePackageJsonEvent";
 import FabalousStore from "../FabalousStore";
 import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 import {fsync} from "fs";
+import {UiCommandMenuTyes} from "./UiCommand";
+import {readFileSync} from "fs";
 
 export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousStore> {
     fs = require('fs-extra');
@@ -23,24 +25,29 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
         this.json.name = name;
     }
 
-    setDevDependencies(deps: Array<string>) {
+    setDevDependencies(deps: Array<UiCommandMenuTyes>) {
         for (let dep of deps) {
             switch (dep) {
-                case "Node (Server)":
+                case UiCommandMenuTyes.RUNTIMES_NODE:
                     this.json.devDependencies["@fabalous/runtime-node"] = "*";
                     this.json.scripts["node-watch"] = "gulp runtime-node-watch";
                     this.json.scripts["node-build"] = "gulp runtime-node-build";
                     this.json.fabalous.codeStructure["nodeCommand"] = "${moduleName}/command/node/${fileName}NodeCommand.ts";
                     break;
 
-                case "Web (React)":
+                case UiCommandMenuTyes.RUNTIMES_WEB:
                     this.json.devDependencies["@fabalous/runtime-web"] = "*";
                     this.json.scripts["web-watch"] = "gulp runtime-web-watch";
                     this.json.scripts["web-build"] = "gulp runtime-web-build";
                     this.json.fabalous.codeStructure["webCommand"] = "${moduleName}/command/web/${fileName}WebCommand.ts";
                     break;
 
-                case "Specs (Jest)":
+                case UiCommandMenuTyes.RUNTIMES_APP:
+                    this.json.devDependencies["@fabalous/runtime-cordova"] = "*";
+                    this.json.fabalous.codeStructure["cordovaCommand"] = "${moduleName}/command/web/${fileName}CordovaCommand.ts";
+                    break;
+
+                case UiCommandMenuTyes.TEST_JEST:
                     //this.json.devDependencies["@fabalous/test-jest-enzyme"] = "*";
                     this.json.scripts["test"] = "jest --no-cache --watch";
                     this.json["jest"] = this.jest;
@@ -48,9 +55,14 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
             }
         }
 
+        for (let externalDep of this.data.step2Data.externalLibs) {
+            for (let externalDepSingle of externalDep) {
+                this.json.devDependencies[externalDepSingle] = "*"
+            }
+        }
     }
 
-    createDirs(deps: Array<string>){
+    createDirs(deps: Array<UiCommandMenuTyes>){
         let fs = require('fs-extra');
 
         fs.mkdirsSync(`${this.data.testPath}src`);
@@ -58,35 +70,42 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
 
         for (let dep of deps) {
             switch (dep) {
-                case "Node (Server)":
+                case UiCommandMenuTyes.RUNTIMES_NODE:
                     fs.mkdirsSync(`${this.data.testPath}src/common/node`);
                     break;
-                case "Web (React)":
+                case UiCommandMenuTyes.RUNTIMES_WEB:
                     fs.mkdirsSync(`${this.data.testPath}src/common/web`);
+                    break;
+                case UiCommandMenuTyes.RUNTIMES_APP:
+                    fs.mkdirsSync(`${this.data.testPath}src/common/cordova`);
                     break;
             }
         }
     }
 
-    copyStarterFiles(deps: Array<string>){
+    copyStarterFiles(deps: Array<UiCommandMenuTyes>){
         let fs = require('fs-extra');
-
 
         fs.copySync(`./../files/src/Routes.ts`,`${this.data.testPath}src/common/Routes.ts`);
         fs.copySync(`./../files/tsconfig.json`,`${this.data.testPath}tsconfig.json`);
         fs.copySync(`./../files/gitignore`,`${this.data.testPath}.gitignore`);
         fs.copySync(`./../files/npmignore`,`${this.data.testPath}.npmignore`);
-        fs.copySync(`./../files/gulpfile.js`,`${this.data.testPath}gulpfile.js`);
+
+        fs.outputFileSync(`${this.data.testPath}gulpfile.js`,  this.compileGulpFile(), "utf8");
+
         for (let dep of deps) {
             switch (dep) {
-                case "Node (Server)":
+                case UiCommandMenuTyes.RUNTIMES_NODE:
                     fs.copySync(`./../files/src/node/A_Node.ts`,`${this.data.testPath}src/A_Node.ts`);
                     fs.copySync(`./../files/src/node/NodeStore.ts`,`${this.data.testPath}src/common/node/NodeStore.ts`);
                     break;
-                case "Web (React)":
+                case UiCommandMenuTyes.RUNTIMES_WEB:
+                    fs.copySync(`./../files/src/web/index.ejs`,`${this.data.testPath}src/common/web/index.ejs`);
                     fs.copySync(`./../files/src/web/A_Web.ts`,`${this.data.testPath}src/A_Web.ts`);
                     fs.copySync(`./../files/src/web/RootLayout.tsx`,`${this.data.testPath}src/common/web/RootLayout.tsx`);
                     fs.copySync(`./../files/src/web/WebStore.ts`,`${this.data.testPath}src/common/web/WebStore.ts`);
+                    break;
+                case UiCommandMenuTyes.RUNTIMES_APP:
                     break;
             }
         }
@@ -132,4 +151,32 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
         "testResultsProcessor": "<rootDir>/node_modules/ts-jest/coverageprocessor.js"
     }
 
+
+    private compileGulpFile(){
+        console.log("compileGulpFile");
+        let data:any = {};
+        for (let obj of this.data.step1Data.libs) {
+            switch (obj){
+                case UiCommandMenuTyes.RUNTIMES_WEB:
+                    data.web = true;
+                    break;
+                case UiCommandMenuTyes.RUNTIMES_APP:
+                    data.cordova = true;
+                    break;
+                case UiCommandMenuTyes.RUNTIMES_NODE:
+                    data.node = true;
+                    break;
+            }
+        }
+        
+        return this.compileFile(`./../files/gulpfile.js.hbs`, data);
+    }
+
+    private compileFile(path:string, data:any){
+        const handlebar = require('handlebars');
+    
+        const source = readFileSync(path, "utf8");
+        const template = handlebar.compile(source);
+        return template(data);
+    }
 }

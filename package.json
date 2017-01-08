@@ -8,6 +8,7 @@
     "cmdify": "0.0.4",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
+    "command-exists": "^1.0.2",
     "commander": "^2.9.0",
     "fs-extra": "^1.0.0",
     "handlebars": "*",

@@ -2,13 +2,12 @@ import InitFabalousEvent from "../event/InitFabalousEvent";
 import GetPackageJsonEvent from "../event/GetPackageJsonEvent";
 import CreateAppEvent from "../event/CreateAppEvent";
 import ShowMainMenuEvent from "../event/ShowMainMenuEvent";
-import CreateAppStep1DialogEvent from "../event/CreateAppStep1DialogEvent";
-import CreateAppStep2DialogEvent from "../event/CreateAppStep2DialogEvent";
 import FabalousStore from "../FabalousStore";
 import {ShowMainMenuEventTypes} from "../event/ShowMainMenuEvent";
 import CreateModuleEvent from "../event/CreateModuleEvent";
 import CreateEventEvent from "../event/CreateEventEvent";
 import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
+import {readFileSync} from "fs";
 
 export default class InitFabalousCommand extends FabaCoreCommand<FabalousStore> {
     async execute(event: InitFabalousEvent) {
@@ -31,10 +30,6 @@ export default class InitFabalousCommand extends FabaCoreCommand<FabalousStore> 
             }
         } else {
             // Json is missing create new Project
-            var step1:CreateAppStep1DialogEvent = await new CreateAppStep1DialogEvent().dispatch();
-            var step2:CreateAppStep2DialogEvent = await new CreateAppStep2DialogEvent().dispatch();
-            this.data.step1Data = step1.data;
-            this.data.step2Data = step2.data;
             new CreateAppEvent().dispatch();
         }
     }

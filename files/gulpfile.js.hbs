@@ -3,9 +3,15 @@ var gulp = require('gulp');
 __workDir = __dirname;
 __devTool = 'source-map';
 
+{{#if web}}
 require('@fabalous/runtime-node/config/gulp/RuntimeNode.config')(gulp);
-require('@fabalous/runtime-web/config/gulp/RuntimeWeb.config')(gulp);
+{{/if}}
 
-gulp.task('build', ['backend-build', 'runtime-web-build'], function() {
-    process.exit(0);
-});
+{{#if node}}
+require('@fabalous/runtime-web/config/gulp/RuntimeWeb.config')(gulp);
+{{/if}}
+
+{{#if cordova}}
+require('@fabalous/runtime-cordova/config/gulp/RuntimeCordova.config')(gulp);
+{{/if}}
+

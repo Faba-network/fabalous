@@ -28,17 +28,13 @@ export default class CreateEveCmdCommand extends FabaCoreCommand<FabalousStore> 
         }
 
         // TDD If avaible
-        if (false){
-            for (let runtime of this.data.runtimes) {
-                fs.outputFileSync(
-                    `${this.data.testPath}src/${ev.data.moduleName}/${runtime}/spec/${ev.data.eventBaseName}${runtime}Spec.ts`,
-                    this.compileFile(`./../files/module/command/ModuleSpec.ts.hbs`),
-                    "utf8"
-                );
-            }
+        for (let runtime of this.data.runtimes) {
+            fs.outputFileSync(
+                `${this.data.testPath}src/${ev.data.moduleName}/${runtime}/spec/${ev.data.eventBaseName}${runtime}Spec.ts`,
+                this.compileFile(`./../files/module/command/ModuleSpec.ts.hbs`),
+                "utf8"
+            );
         }
-
-
 
         new ShowMainMenuEvent().dispatch();
     }

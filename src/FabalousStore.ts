@@ -1,3 +1,4 @@
+import {UiCommandMenuTyes} from "./command/UiCommand";
 export default class FabalousStore{
     parsedPackage:any;
 
@@ -13,8 +14,8 @@ export default class FabalousStore{
     runtimes:Array<string> = ["web", "node"];
 
 
-    step1Data:any;
-    step2Data:any;
+    step1Data:IStep1Data;
+    step2Data:IStep2Data;
 
     mainMenuData:any;
 
@@ -25,4 +26,13 @@ export default class FabalousStore{
     constructor(){
 
     }
+}
+
+interface IStep1Data{
+    projectName:string;
+    libs:Array<UiCommandMenuTyes>;
+}
+
+interface IStep2Data{
+    externalLibs:Array<Array<string>>;
 }

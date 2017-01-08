@@ -17,7 +17,6 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
         switch (event.name) {
             case ShowMainMenuEvent.name:
                 let choice = await this.showMainMenu();
-                console.log(choice);
                 switch(choice.menu){
                     case `Create new Module`:
                         new CreateModuleEvent().dispatch();
@@ -49,8 +48,7 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
 
             case CreateAppStep2DialogEvent.name: {
                 let ev: CreateAppStep2DialogEvent = event as CreateAppStep2DialogEvent;
-                let data = await this.showAppDialogStep2();
-                ev.data = data;
+                ev.data = await this.showAppDialogStep2();
                 ev.callBack();
                 break;
             }
@@ -125,33 +123,73 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
             },
             {
                 type: 'checkbox',
-                message: '(2 / 4) Core Libraries',
+                message: '(2 / 4) Libraries and Runtimes',
                 name: 'libs',
+                pageSize: 10,
                 choices: [
                     new this.inquirer.Separator(' = Runtimes = '),
-                    { name: 'Node (Server)'},
-                    { name: 'Web (React)'},
-                    { name: 'Native (React Native)'},
-                    { name: 'VR (React VR)'},
-                    { name: 'Web App (Phonegap)'},
-                    { name: 'Desktop (Electron)'},
+                    { name: 'Node (Server)',                value:UiCommandMenuTyes.RUNTIMES_NODE, checked: true},
+                    { name: 'Web (React)',                  value:UiCommandMenuTyes.RUNTIMES_WEB},
+                    { name: 'Web Mobile App (Cordova)',     value:UiCommandMenuTyes.RUNTIMES_APP},
+                 //   { name: 'Web Desktop App (Electron)',   value:UiCommandMenuTyes.RUNTIMES_DESKTOP},
+                 //   { name: 'Native Mobile (React Native)', value:UiCommandMenuTyes.RUNTIMES_NATIVE},
+                 //   { name: 'VR (React VR)',                value:UiCommandMenuTyes.RUNTIMES_VR},
 
                     new this.inquirer.Separator(' = Testing = '),
-                    { name: 'TDD / Specs (Jest)'},
-                    { name: 'E2E (Karma / Nightwatch)'},
-                    { name: 'CSS Regression'}
+                    { name: 'TDD / Specs (Jest)',           value:UiCommandMenuTyes.TEST_JEST, checked: true},
+                    { name: 'E2E (Karma / Nightwatch)',     value:UiCommandMenuTyes.TEST_E2E},
+                  //  { name: 'Visual Regression',            value:UiCommandMenuTyes.TEST_VISUAL}
                 ]
             }
         ]);
     }
 
     async showAppDialogStep2() {
+        let choices:Array<any> = [];
+
+        for (let lib of this.data.step1Data.libs) {
+            switch (lib){
+                case UiCommandMenuTyes.RUNTIMES_WEB:
+                    choices.push(new this.inquirer.Separator(' = Web UI = '));
+                    choices.push({ name: 'Material UI', value:["material-ui", "@types/material-ui", "react-tap-event-plugin"]});
+                    choices.push(new this.inquirer.Separator(' = Web Database = '));
+                    choices.push({ name: 'PouchDB', value:["pouchdb", "@types/pouchdb"]});
+                    break;
+                case UiCommandMenuTyes.RUNTIMES_NODE:
+                    choices.push(new this.inquirer.Separator(' = Node Transport = '));
+                    choices.push({ name: 'Websocket (socket.io)', value:["socket.io", "@types/socket.io"]});
+                    choices.push(new this.inquirer.Separator(' = Node Databases = '));
+                    choices.push({ name: 'MongoDB', value:["mongodb", "@types/mongodb"]});
+                    choices.push({ name: 'RethinkDB', value:["rethinkdb", "@types/rethinkdb"]});
+                    choices.push({ name: 'PouchDB', value:["pouchdb", "@types/pouchdb"]});
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
         return this.inquirer.prompt([
             {
-                type: 'text',
-                message: '(3 / 5) Do you want some UI Libs?',
-                name: 'UiLibs'
-            }
-        ]);
+                type: 'checkbox',
+                message: '(3 / 5) Here is a list of recommend external Libs based on your selection!',
+                name: 'externalLibs',
+                pageSize: 10,
+                choices: choices
+            }]
+        );
     }
+}
+
+export enum UiCommandMenuTyes{
+    RUNTIMES_NODE,
+    RUNTIMES_WEB,
+    RUNTIMES_NATIVE,
+    RUNTIMES_VR,
+    RUNTIMES_APP,
+    RUNTIMES_DESKTOP,
+    TEST_JEST,
+    TEST_E2E,
+    TEST_VISUAL,
 }
