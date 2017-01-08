@@ -20,7 +20,8 @@
   },
   "files": [
     "./files/",
-    "files"
+    "files",
+    "build"
   ],
   "devDependencies": {},
   "scripts": {
