@@ -13,7 +13,7 @@ export default class CreateEveCmdCommand extends FabaCoreCommand<FabalousStore> 
 
         // Event
         fs.outputFileSync(
-            `${this.data.testPath}src/${ev.data.moduleName}/event/${ev.data.eventBaseName}Event.ts`,
+            `${this.data.projectPath}src/${ev.data.moduleName}/event/${ev.data.eventBaseName}Event.ts`,
             this.compileFile(`./../files/module/event/ModuleEvent.ts.hbs`),
             "utf8"
         );
@@ -21,7 +21,7 @@ export default class CreateEveCmdCommand extends FabaCoreCommand<FabalousStore> 
         // Command -- Foreach Runtime
         for (let runtime of this.data.runtimes) {
             fs.outputFileSync(
-                `${this.data.testPath}src/${ev.data.moduleName}/${runtime}/command/${ev.data.eventBaseName}${runtime}Command.ts`,
+                `${this.data.projectPath}src/${ev.data.moduleName}/${runtime}/command/${ev.data.eventBaseName}${runtime}Command.ts`,
                 this.compileFile(`./../files/module/command/ModuleCommand.ts.hbs`),
                 "utf8"
             );
@@ -30,7 +30,7 @@ export default class CreateEveCmdCommand extends FabaCoreCommand<FabalousStore> 
         // TDD If avaible
         for (let runtime of this.data.runtimes) {
             fs.outputFileSync(
-                `${this.data.testPath}src/${ev.data.moduleName}/${runtime}/spec/${ev.data.eventBaseName}${runtime}Spec.ts`,
+                `${this.data.projectPath}src/${ev.data.moduleName}/${runtime}/spec/${ev.data.eventBaseName}${runtime}Spec.ts`,
                 this.compileFile(`./../files/module/command/ModuleSpec.ts.hbs`),
                 "utf8"
             );

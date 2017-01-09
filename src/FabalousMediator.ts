@@ -23,6 +23,8 @@ import CreateEveCmdEvent from "./event/CreateEveCmdEvent";
 import CreateEveCmdCommand from "./command/CreateEveCmdCommand";
 import FabaEvent from "@fabalous/core/FabaEvent";
 import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
+import GetModulesCommand from "./command/GetModulesCommand";
+import GetModulesEvent from "./event/GetModulesEvent";
 
 export default class FabalousMediator extends FabaCoreMediator{
     addCommand(event: any, command: typeof FabaCoreCommand): void {
@@ -34,6 +36,8 @@ export default class FabalousMediator extends FabaCoreMediator{
         this.addCommand(GetPackageJsonEvent, GetPackageJsonCommand);
         this.addCommand(CreatePackageJsonEvent, CreatePackageJsonCommand);
         this.addCommand(InstallNPMDepsEvent, InstallNPMDepsCommand);
+
+        this.addCommand(GetModulesEvent, GetModulesCommand);
 
         this.addCommand(CreateModuleEvent, CreateModuleCommand);
         this.addCommand(CreateEveCmdEvent, CreateEveCmdCommand);

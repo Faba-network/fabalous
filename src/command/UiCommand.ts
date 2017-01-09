@@ -80,9 +80,10 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
     private showCreateECSModule(){
         return this.inquirer.prompt([
             {
-                type: 'text',
-                message: 'Please enter the module name?',
-                name: 'moduleName'
+                type: 'list',
+                name: 'moduleName',
+                choices: this.data.modules,
+                message: 'Please enter the module name?'
             },
             {
                 type: 'text',

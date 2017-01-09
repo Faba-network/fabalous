@@ -9,6 +9,8 @@
         "outDir": "./build",
         "rootDir": "./src/",
         "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": true,
         "lib":[
             "es7", "dom"
         ],

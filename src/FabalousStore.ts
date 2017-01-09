@@ -2,26 +2,19 @@ import {UiCommandMenuTyes} from "./command/UiCommand";
 export default class FabalousStore{
     parsedPackage:any;
 
-    testPath = "/users/creativecode/Projekte/fab-test/";
-
-    firstName:string = "firs";
-    lastName:string = "sec";
+    // projectpath
+    projectPath = "./";
 
     // PackageJson
     json:any = false;
 
     // Runtimes
-    runtimes:Array<string> = ["web", "node"];
-
+    runtimes:Array<string> = [""];
 
     step1Data:IStep1Data;
     step2Data:IStep2Data;
 
-    mainMenuData:any;
-
-    get fullname():string{
-        return `${this.firstName}  ${this.lastName}`;
-    }
+    modules:Array<string> = [];
 
     constructor(){
 

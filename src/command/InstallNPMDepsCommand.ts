@@ -8,9 +8,9 @@ export default class InstallNPMDepsCommand extends FabaCoreCommand<FabalousStore
         const spawn = require('child_process').spawn;
         let cmd;
         if (event.yarnExist){
-            cmd = spawn(cmdify(`cd ${this.data.testPath} && yarn install`), { shell: true, stdio: 'pipe'});
+            cmd = spawn(cmdify(`cd ${this.data.projectPath} && yarn install`), { shell: true, stdio: 'pipe'});
         } else {
-            cmd = spawn(cmdify(`cd ${this.data.testPath} && npm install`), { shell: true, stdio: 'pipe'});
+            cmd = spawn(cmdify(`cd ${this.data.projectPath} && npm install`), { shell: true, stdio: 'pipe'});
         }
         cmd.stdout.on('data', (data) => {
             if (event.yarnExist){
