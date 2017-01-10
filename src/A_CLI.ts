@@ -1,3 +1,6 @@
+#! /usr/bin/env node
+
+
 import FabaCore from "@fabalous/core/FabaCore";
 import FabaStore from "@fabalous/core/FabaStore";
 import FabalousStore from "./FabalousStore";
