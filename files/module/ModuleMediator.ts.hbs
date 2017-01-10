@@ -2,30 +2,8 @@ import FabaMediator from "fabalous-core/core/FabaMediator";
 import {IFabaMediator} from "fabalous-core/core/IFabaMediator";
 
 export default class {{MODULE_MEDIATOR}} extends FabaMediator implements IFabaMediator{
-    constructor() {
-        super();
-
-        if (module.hot) {
-            module.hot.accept([
-                {{MODULE_COMMAND}}
-            ], () => {
-                this.cmdList = new Array<Object>();
-                this.registerCommands();
-            });
-        }
-    }
-
     registerCommands():void {
-        if(CLIENT){
-            super.registerCommands();
-            this.addCommand({{MODULE_EVENT}}, {{MODULE_COMMAND}});
-        }
-    }
-
-    registerServices():void {
-        if(SERVER) {
-            super.registerServices();
-            this.addSerivce({{MODULE_EVENT}}, {{MODULE_SERVICE}});
-        }
+        super.registerCommands();
+        this.addCommand({{MODULE_EVENT}}, {{MODULE_COMMAND}});
     }
 }

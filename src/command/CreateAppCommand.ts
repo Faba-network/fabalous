@@ -13,8 +13,6 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
     fs = require('fs-extra');
     path = require('path');
 
-    perc = 0;
-
     async execute(event: CreateAppEvent) {
         const step1:CreateAppStep1DialogEvent = await new CreateAppStep1DialogEvent().dispatch();
         this.data.step1Data = step1.data;
@@ -23,10 +21,13 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         this.data.step2Data = step2.data;
 
         console.log(chalk.bold(chalk.blue('-')  + ' Create App Structure...'));
-        this.fs.removeSync(this.data.testPath);
-        this.fs.mkdirsSync(this.data.testPath);
 
-        await new CreatePackageJsonEvent().dispatch();
+        try {
+            await new CreatePackageJsonEvent().dispatch();    
+        } catch (e){
+            console.log(e);
+        }
+        
         console.log(chalk.bold(chalk.blue('-')  + ' Execute NPM install please wait!'));
 
         const inquirer = require("inquirer");
@@ -41,9 +42,10 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         const ui = new inquirer.ui.BottomBar({bottomBar: loader[i % 4]});
 
         let yarnExist:boolean = await this.commandExist() as boolean;
+        let interval;
 
         if (!yarnExist){
-            var interval = setInterval(()=>{
+            interval = setInterval(()=>{
                 ui.updateBottomBar(loader[i++ % 4]);
             }, 100);
         }
@@ -57,7 +59,7 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         console.log();
 
         new ShowMainMenuEvent().dispatch();
-
+        event.callBack();
     }
 
     async commandExist(){

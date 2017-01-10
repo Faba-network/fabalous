@@ -8,6 +8,7 @@ import CreateModuleEvent from "../event/CreateModuleEvent";
 import CreateEventEvent from "../event/CreateEventEvent";
 import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
 import {readFileSync} from "fs";
+import GetModulesEvent from "../event/GetModulesEvent";
 
 export default class InitFabalousCommand extends FabaCoreCommand<FabalousStore> {
     async execute(event: InitFabalousEvent) {
@@ -15,6 +16,10 @@ export default class InitFabalousCommand extends FabaCoreCommand<FabalousStore> 
         await new GetPackageJsonEvent().dispatch();
         if (this.data.json){
             // Json is alreadey avaible
+
+            let modules = await new GetModulesEvent().dispatch();
+            console.log(modules);
+
             let mainMenu:ShowMainMenuEvent = await new ShowMainMenuEvent().dispatch();
             switch (mainMenu.data){
                 case ShowMainMenuEventTypes.CREATE_MODULE:

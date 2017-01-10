@@ -7,8 +7,11 @@ import {readFileSync} from "fs";
 
 export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousStore> {
     fs = require('fs-extra');
+    filePath;
 
     async execute(event: CreatePackageJsonEvent) {
+        this.filePath = `${__dirname}/../../files/`;
+
         this.setProjectName(this.data.step1Data.projectName);
         this.setDevDependencies(this.data.step1Data.libs);
         this.createDirs(this.data.step1Data.libs);
@@ -16,8 +19,8 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
         this.copyStarterFiles(this.data.step1Data.libs);
 
         let fs = require('fs-extra');
-        fs.writeJson(`${this.data.testPath}package.json`, this.json, (err) => {
-             event.callBack();
+        fs.writeJson(`${this.data.projectPath}package.json`, this.json, (err) => {
+            event.callBack();
         });
     }
 
@@ -48,7 +51,7 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
                     break;
 
                 case UiCommandMenuTyes.TEST_JEST:
-                    //this.json.devDependencies["@fabalous/test-jest-enzyme"] = "*";
+                    this.json.devDependencies["@fabalous/test-jest"] = "*";
                     this.json.scripts["test"] = "jest --no-cache --watch";
                     this.json["jest"] = this.jest;
                     break;
@@ -62,50 +65,53 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
         }
     }
 
-    createDirs(deps: Array<UiCommandMenuTyes>){
+    createDirs(deps: Array<UiCommandMenuTyes>) {
         let fs = require('fs-extra');
 
-        fs.mkdirsSync(`${this.data.testPath}src`);
-        fs.mkdirsSync(`${this.data.testPath}src/common`);
+        fs.mkdirsSync(`${this.data.projectPath}src`);
+        fs.mkdirsSync(`${this.data.projectPath}src/common`);
 
         for (let dep of deps) {
             switch (dep) {
                 case UiCommandMenuTyes.RUNTIMES_NODE:
-                    fs.mkdirsSync(`${this.data.testPath}src/common/node`);
+                    fs.mkdirsSync(`${this.data.projectPath}src/common/node`);
                     break;
                 case UiCommandMenuTyes.RUNTIMES_WEB:
-                    fs.mkdirsSync(`${this.data.testPath}src/common/web`);
+                    fs.mkdirsSync(`${this.data.projectPath}src/common/web`);
                     break;
                 case UiCommandMenuTyes.RUNTIMES_APP:
-                    fs.mkdirsSync(`${this.data.testPath}src/common/cordova`);
+                    fs.mkdirsSync(`${this.data.projectPath}src/common/cordova`);
                     break;
             }
         }
     }
 
-    copyStarterFiles(deps: Array<UiCommandMenuTyes>){
+    copyStarterFiles(deps: Array<UiCommandMenuTyes>) {
         let fs = require('fs-extra');
 
-        fs.copySync(`./../files/src/Routes.ts`,`${this.data.testPath}src/common/Routes.ts`);
-        fs.copySync(`./../files/tsconfig.json`,`${this.data.testPath}tsconfig.json`);
-        fs.copySync(`./../files/gitignore`,`${this.data.testPath}.gitignore`);
-        fs.copySync(`./../files/npmignore`,`${this.data.testPath}.npmignore`);
+        fs.copySync(`${this.filePath}/src/Routes.ts`, `${this.data.projectPath}src/common/Routes.ts`);
+        fs.copySync(`${this.filePath}/tsconfig.json`, `${this.data.projectPath}tsconfig.json`);
+        fs.copySync(`${this.filePath}/gitignore`, `${this.data.projectPath}.gitignore`);
+        fs.copySync(`${this.filePath}/npmignore`, `${this.data.projectPath}.npmignore`);
 
-        fs.outputFileSync(`${this.data.testPath}gulpfile.js`,  this.compileGulpFile(), "utf8");
+        fs.outputFileSync(`${this.data.projectPath}gulpfile.js`, this.compileGulpFile(), "utf8");
 
         for (let dep of deps) {
             switch (dep) {
                 case UiCommandMenuTyes.RUNTIMES_NODE:
-                    fs.copySync(`./../files/src/node/A_Node.ts`,`${this.data.testPath}src/A_Node.ts`);
-                    fs.copySync(`./../files/src/node/NodeStore.ts`,`${this.data.testPath}src/common/node/NodeStore.ts`);
+                    fs.copySync(`${this.filePath}/src/node/A_Node.ts`, `${this.data.projectPath}src/A_Node.ts`);
+                    fs.copySync(`${this.filePath}/src/node/NodeStore.ts`, `${this.data.projectPath}src/common/node/NodeStore.ts`);
                     break;
                 case UiCommandMenuTyes.RUNTIMES_WEB:
-                    fs.copySync(`./../files/src/web/index.ejs`,`${this.data.testPath}src/common/web/index.ejs`);
-                    fs.copySync(`./../files/src/web/A_Web.ts`,`${this.data.testPath}src/A_Web.ts`);
-                    fs.copySync(`./../files/src/web/RootLayout.tsx`,`${this.data.testPath}src/common/web/RootLayout.tsx`);
-                    fs.copySync(`./../files/src/web/WebStore.ts`,`${this.data.testPath}src/common/web/WebStore.ts`);
+                    fs.copySync(`${this.filePath}/src/web/index.ejs`, `${this.data.projectPath}src/common/web/index.ejs`);
+                    fs.copySync(`${this.filePath}/src/web/A_Web.ts`, `${this.data.projectPath}src/A_Web.ts`);
+                    fs.copySync(`${this.filePath}/src/web/RootLayout.tsx`, `${this.data.projectPath}src/common/web/RootLayout.tsx`);
+                    fs.copySync(`${this.filePath}/src/web/WebStore.ts`, `${this.data.projectPath}src/common/web/WebStore.ts`);
                     break;
                 case UiCommandMenuTyes.RUNTIMES_APP:
+                    fs.copySync(`${this.filePath}/src/cordova/index.ejs`, `${this.data.projectPath}src/common/cordova/index.ejs`);
+                    fs.copySync(`${this.filePath}/src/cordova/A_Cordova.ts`, `${this.data.projectPath}src/A_Cordova.ts`);
+                    fs.copySync(`${this.filePath}/src/cordova/CordovaStore.ts`, `${this.data.projectPath}src/common/cordova/CordovaStore.ts`);
                     break;
             }
         }
@@ -152,11 +158,10 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
     }
 
 
-    private compileGulpFile(){
-        console.log("compileGulpFile");
-        let data:any = {};
+    private compileGulpFile() {
+        let data: any = {};
         for (let obj of this.data.step1Data.libs) {
-            switch (obj){
+            switch (obj) {
                 case UiCommandMenuTyes.RUNTIMES_WEB:
                     data.web = true;
                     break;
@@ -168,13 +173,13 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
                     break;
             }
         }
-        
-        return this.compileFile(`./../files/gulpfile.js.hbs`, data);
+
+        return this.compileFile(`${this.filePath}gulpfile.js.hbs`, data);
     }
 
-    private compileFile(path:string, data:any){
+    private compileFile(path: string, data: any): string {
         const handlebar = require('handlebars');
-    
+
         const source = readFileSync(path, "utf8");
         const template = handlebar.compile(source);
         return template(data);

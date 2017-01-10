@@ -7,7 +7,7 @@ export interface IRoutes {
 export default class Routes {
     static INDEX: IRoutes = {
         route: "/", module: async(): Promise<void> => {
-            if (process.env.FABALOUS_WEB && process.env.FABALOUS_NODE){
+            if (process.env.FABALOUS_WEB || process.env.FABALOUS_NODE){
                 return System.import("@fabalous/runtime-web/initModule/index");
             }
 
