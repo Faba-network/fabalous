@@ -28,7 +28,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "bulild": "tsc",
     "develop": "tsc --watch",
-    "postversion": "git commit && npm run build && git push --tags && npm publish"
+    "postversion": "npm run build && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
