@@ -20,9 +20,10 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
                 switch(choice.menu){
                     case `Create new Module`:
                         new CreateModuleEvent().dispatch();
+                        break;
                     case `Create Event / Command / Service`:
                         new CreateEveCmdEvent().dispatch();
-                    break;
+                        break;
                 }
                 break;
 
