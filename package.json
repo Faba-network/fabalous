@@ -26,7 +26,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bulild": "tsc",
+    "build": "tsc",
     "develop": "tsc --watch",
     "postversion": "npm run build && git push --tags && npm publish"
   },
