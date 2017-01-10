@@ -7,10 +7,10 @@ import {readFileSync} from "fs";
 
 export default class CreateModuleCommand extends FabaCoreCommand<FabalousStore> {
     async execute(event: CreateModuleEvent) {
-        var ev:ShowCreateModuleDialogEvent = await new ShowCreateModuleDialogEvent().dispatch();
+        let ev:ShowCreateModuleDialogEvent = await new ShowCreateModuleDialogEvent().dispatch();
 
         let fs = require('fs-extra');
-        const filePath = `${__dirname}../../files/`;
+        const filePath = `${__dirname}/../../files/`;
 
         fs.copySync(`${filePath}src/Routes.ts`,`${this.data.projectPath}src/${ev.data.moduleName}/index.ts`);
 

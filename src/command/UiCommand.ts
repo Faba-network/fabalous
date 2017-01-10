@@ -83,7 +83,7 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
                 type: 'list',
                 name: 'moduleName',
                 choices: this.data.modules,
-                message: 'Please enter the module name?'
+                message: 'Please choice the module'
             },
             {
                 type: 'text',

@@ -6,6 +6,9 @@ import FabalousMediator from "./FabalousMediator";
 
 class A_CLI extends FabaCore{
     constructor(store){
+        process.on('uncaughtException', function(err) {
+            throw err;
+        });
         super(store);
         FabaCore.addMediator(FabalousMediator);
         new InitFabalousEvent().dispatch();

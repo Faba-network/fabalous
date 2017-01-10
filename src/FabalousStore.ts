@@ -9,7 +9,7 @@ export default class FabalousStore{
     json:any = false;
 
     // Runtimes
-    runtimes:Array<string> = [""];
+    runtimes:Array<string> = [];
 
     step1Data:IStep1Data;
     step2Data:IStep2Data;

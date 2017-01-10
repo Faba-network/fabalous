@@ -16,23 +16,7 @@ export default class InitFabalousCommand extends FabaCoreCommand<FabalousStore> 
         await new GetPackageJsonEvent().dispatch();
         if (this.data.json){
             // Json is alreadey avaible
-
-            let modules = await new GetModulesEvent().dispatch();
-            console.log(modules);
-
-            let mainMenu:ShowMainMenuEvent = await new ShowMainMenuEvent().dispatch();
-            switch (mainMenu.data){
-                case ShowMainMenuEventTypes.CREATE_MODULE:
-                    new CreateModuleEvent().dispatch();
-                    break;
-                case ShowMainMenuEventTypes.CREATE_EVENT:
-                    new CreateEventEvent().dispatch();
-                    break;
-                case ShowMainMenuEventTypes.ADD_RUNTIME:
-                    break;
-                case ShowMainMenuEventTypes.SHOW_HELP:
-                    break;
-            }
+            new ShowMainMenuEvent().dispatch();
         } else {
             // Json is missing create new Project
             new CreateAppEvent().dispatch();

@@ -10,13 +10,15 @@ export default class GetModulesCommand extends FabaCoreCommand<FabalousStore> {
         this.data.modules = [];
 
         for (let obj of dirContent) {
-            if (obj == "common") break;
+            if (obj == "common") continue;
+
             const isDir = (fs.lstatSync(`${this.data.projectPath}/src/${obj}`).nlink > 1);
 
             if (isDir){
                 this.data.modules.push(obj);
             }
-
         }
+
+        event.callBack();
     }
 }

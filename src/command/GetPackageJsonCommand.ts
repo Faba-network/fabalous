@@ -9,7 +9,20 @@ export default class GetPackageJsonCommand extends FabaCoreCommand<FabalousStore
 
         try {
             let packJson = readFileSync(`${this.data.projectPath}package.json`, "utf8");
-            this.data.json = packJson;
+            this.data.json = JSON.parse(packJson);
+
+            if (this.data.json.devDependencies['@fabalous/runtime-node']){
+                this.data.runtimes.push("Node");
+            }
+
+            if (this.data.json.devDependencies['@fabalous/runtime-web']){
+                this.data.runtimes.push("Web");
+            }
+
+            if (this.data.json.devDependencies['@fabalous/runtime-cordova']){
+                this.data.runtimes.push("Cordova");
+            }
+
         } catch (e){
             this.data.json = false;
         }
