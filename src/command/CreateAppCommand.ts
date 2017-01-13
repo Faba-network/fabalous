@@ -6,8 +6,8 @@ import InstallNPMDepsEvent from "../event/InstallNPMDepsEvent";
 import ShowMainMenuEvent from "../event/ShowMainMenuEvent";
 import CreateAppStep1DialogEvent from "../event/CreateAppStep1DialogEvent";
 import CreateAppStep2DialogEvent from "../event/CreateAppStep2DialogEvent";
+import GetPackageJsonEvent from "../event/GetPackageJsonEvent";
 const chalk = require('chalk');
-
 
 export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
     fs = require('fs-extra');
@@ -57,7 +57,7 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         console.log();
         ui.updateBottomBar(chalk.bold(chalk.cyan('Installation done!\n')));
         console.log();
-
+        await new GetPackageJsonEvent().dispatch();
         new ShowMainMenuEvent().dispatch();
         event.callBack();
     }

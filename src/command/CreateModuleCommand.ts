@@ -12,9 +12,11 @@ export default class CreateModuleCommand extends FabaCoreCommand<FabalousStore> 
         const ev:ShowCreateModuleDialogEvent = await new ShowCreateModuleDialogEvent().dispatch();
         const fs = require('fs-extra');
         const fsn = require('fs');
+
         const filePath = `${__dirname}/../../files/`;
         const modulePath = `${this.data.projectPath}src/${ev.data.moduleName}/`;
         const upperModuleName = `${ev.data.moduleName.substr(0,1).toUpperCase()}${ev.data.moduleName.substr(1)}`;
+        const baseName = `Init${upperModuleName}`;
 
         try{
             fsn.lstatSync(modulePath);
@@ -27,8 +29,8 @@ export default class CreateModuleCommand extends FabaCoreCommand<FabalousStore> 
         const templateData = {
             filePath,
             modulePath,
-            upperModuleName,
-            moduleName:ev.data.moduleName
+            moduleName:ev.data.moduleName,
+            baseName
         };
 
 
@@ -39,11 +41,10 @@ export default class CreateModuleCommand extends FabaCoreCommand<FabalousStore> 
             const runtObj = Object.assign({runtime},templateData);
 
             new CreateHbsFileEvent(CreateHbsFileEventTypes.MEDIATOR, runtObj).dispatch();
-            /*
             new CreateHbsFileEvent(CreateHbsFileEventTypes.COMMAND, runtObj).dispatch();
             new CreateHbsFileEvent(CreateHbsFileEventTypes.SPEC, runtObj).dispatch();
             new CreateHbsFileEvent(CreateHbsFileEventTypes.VIEW, runtObj).dispatch();
-            */
+
         }
 
         console.log(`Module ${ev.data.moduleName} created!`);

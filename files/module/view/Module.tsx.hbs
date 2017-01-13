@@ -1,18 +1,19 @@
 import FabaWebBaseComponent from "@fabalous/runtime-web/FabaWebBaseComponent";
 import * as React from "react";
 
-interface I{{VIEW_NAME}}Props{
+interface I{{BASE_NAME}}Props{
 
 }
 
-export default class {{VIEW_NAME}} extends FabaWebBaseComponent<I{{VIEW_NAME}}Props>{
+export default class {{BASE_NAME}} extends FabaWebBaseComponent<I{{BASE_NAME}}Props>{
     constructor(props){
         super(props);
     }
 
-    render(): React.ReactElement<I{{VIEW_NAME}}Props> {
-        return <div>
+    render(): React.ReactElement<I{{BASE_NAME}}Props> {
+        return(
+        <div>
         </div>
-        }
+        )
     }
 }

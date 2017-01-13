@@ -1,7 +1,17 @@
-import FabaCommand from "fabalous-core/core/FabaCommand";
+import {{MODULE_EVENT}} from "../../event/{{MODULE_EVENT}}";
+{{#if RUNTIME_WEB}}
+import {FabaWebCommand} from "@fabalous/runtime-web/FabaWebCommand";
+import WebStore from "../../../common/web/WebStore";
 
-export default class {{MODULE_NAME}} extends FabaCommand<null> {
+export default class {{MODULE_COMMAND}} extends FabaWebCommand<WebStore> {
+{{/if}}
+{{#if RUNTIME_NODE}}
+import {FabaNodeCommand} from "@fabalous/runtime-node/FabaNodeCommand";
+import NodeStore from "../../../common/node/NodeStore";
+
+export default class {{MODULE_COMMAND}} extends FabaNodeCommand<NodeStore> {
+{{/if}}
   execute(event:{{MODULE_EVENT}}) {
-    this.sendToEndpoint(event);
+
   }
 }
