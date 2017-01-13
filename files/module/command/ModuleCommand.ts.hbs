@@ -1,23 +1,7 @@
 import FabaCommand from "fabalous-core/core/FabaCommand";
 
-export default class {{MODULE_NAME}} extends FabaCommand {
+export default class {{MODULE_NAME}} extends FabaCommand<null> {
   execute(event:{{MODULE_EVENT}}) {
     this.sendToEndpoint(event);
-  }
-
-  result(event:{{MODULE_EVENT}}) {
-    event.callBack();
-  }
-
-  timeout(event:{{MODULE_EVENT}}) {
-    console.log("Command timeout");
-  }
-
-  error(event:{{MODULE_EVENT}}) {
-    console.log("Command error");
-  }
-
-  offline(event:{{MODULE_EVENT}}) {
-    console.log("Command offline");
   }
 }
