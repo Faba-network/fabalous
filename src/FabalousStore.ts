@@ -16,6 +16,8 @@ export default class FabalousStore{
 
     modules:Array<string> = [];
 
+    moduleName:string;
+
     constructor(){
 
     }

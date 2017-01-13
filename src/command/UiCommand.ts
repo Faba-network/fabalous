@@ -107,10 +107,12 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
                     'Create new Module',
                     'Create Event / Command / Service',
                     'Create View',
+                    /*
                     new this.inquirer.Separator(),
                     'Add Runtime',
                     'Add External Libs',
                     'Show Help'
+                    */
                 ]
             }
         ]);

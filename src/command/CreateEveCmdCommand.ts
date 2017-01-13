@@ -23,7 +23,6 @@ export default class CreateEveCmdCommand extends FabaCoreCommand<FabalousStore> 
 
         // Command -- Foreach Runtime
         for (let runtime of this.data.runtimes) {
-
             fs.outputFileSync(
                 `${this.data.projectPath}src/${ev.data.moduleName}/${runtime.toLocaleLowerCase()}/command/${ev.data.eventBaseName}${runtime}Command.ts`,
                 this.compileFile(`${filePath}module/command/ModuleCommand.ts.hbs`),

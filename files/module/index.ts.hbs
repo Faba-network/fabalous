@@ -1,27 +1,27 @@
-if (process.env.FABALOUS_NODE){
+if (process.env.FABALOUS_RUNTIME == "node"){
     module.exports = {
-      mediator: {{MODULE_MEDIATOR_NODE}},
-      initEvent: System.import("{{MODULE_EVENT}}");
+      mediator: require("{{MODULE_MEDIATOR_NODE}}").default,
+      initEvent: require("{{MODULE_EVENT}}").default
     };
 }
 
-if (process.env.FABALOUS_WEB){
+if (process.env.FABALOUS_RUNTIME == "web"){
     module.exports = {
-        mediator: {{MODULE_MEDIATOR_WEB}},
-        initEvent: System.import("{{MODULE_EVENT}}");
+        mediator: require("{{MODULE_MEDIATOR_WEB}}").default,
+        initEvent: require("{{MODULE_EVENT}}").default
     };
 }
 
-if (process.env.FABALOUS_CORDOVA){
+if (process.env.FABALOUS_RUNTIME == "cordova"){
     module.exports = {
-        mediator: {{MODULE_MEDIATOR_CORDOVA}},
-        initEvent: System.import("{{MODULE_EVENT}}");
+        mediator: require("{{MODULE_MEDIATOR_CORDOVA}}").default,
+        initEvent: require("{{MODULE_EVENT}}").default
     };
 }
 
-if (process.env.FABALOUS_NATIVE){
+if (process.env.FABALOUS_RUNTIME == "native"){
     module.exports = {
-        mediator: {{MODULE_MEDIATOR_NATIVE}},
-        initEvent: System.import("{{MODULE_EVENT}}");
+        mediator: require("{{MODULE_MEDIATOR_NATIVE}}").default,
+        initEvent: require("{{MODULE_EVENT}}").default
     };
 }
