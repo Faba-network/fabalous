@@ -63,6 +63,9 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
                 this.json.devDependencies[externalDepSingle] = "*"
             }
         }
+
+        this.json.devDependencies["tslib"] = "*";
+
     }
 
     createDirs(deps: Array<UiCommandMenuTyes>) {
