@@ -2,7 +2,6 @@
   "name": "fabalous",
   "version": "0.0.37",
   "description": "",
-  "main": "index.js",
   "dependencies": {
     "cmdify": "^0.0.4",
     "co": "^4.6.0",
@@ -46,16 +45,5 @@
   "bugs": {
     "url": "https://github.com/Faba-network/fabalous/issues"
   },
-  "homepage": "https://github.com/Faba-network/fabalous#readme",
-  "bin": {
-    "fabalous": "./dist/cli/CLI.js"
-  },
-  "fabalous": {
-    "codeStructure": {
-      "command": "${moduleName}/command/${fileName}Command.ts",
-      "event": "${moduleName}/event/${fileName}Event.ts",
-      "service": "${moduleName}/service/${fileName}Service.ts",
-      "mediator": "${moduleName}/${fileName}Mediator.ts"
-    }
-  }
+  "homepage": "https://github.com/Faba-network/fabalous#readme"
 }
