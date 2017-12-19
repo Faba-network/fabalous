@@ -12,7 +12,8 @@
     "handlebars": "^4.0.11",
     "inquirer": "^4.0.1",
     "jsonfile": "^4.0.0",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "tslib": "^1.8.1"
   },
   "files": [
     "files",
@@ -23,7 +24,6 @@
     "@fabalous/core": "^0.5.31",
     "@fabalous/runtime-cli": "0.0.3",
     "progress-bar-webpack-plugin": "^1.10.0",
-    "tslib": "^1.8.1",
     "typescript": "^2.6.2",
     "nodemon": "^1.13.3",
     "webpack": "^3.10.0",
