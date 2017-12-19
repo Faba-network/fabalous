@@ -34,26 +34,26 @@ export default class FabalousMediator extends FabaCoreMediator{
     }
 
     registerCommands(): void {
-        this.addCommand(InitFabalousEvent, InitFabalousCommand);
-        this.addCommand(GetPackageJsonEvent, GetPackageJsonCommand);
-        this.addCommand(CreatePackageJsonEvent, CreatePackageJsonCommand);
-        this.addCommand(InstallNPMDepsEvent, InstallNPMDepsCommand);
+        this.addCommand(InitFabalousEvent, InitFabalousCommand as any);
+        this.addCommand(GetPackageJsonEvent, GetPackageJsonCommand as any);
+        this.addCommand(CreatePackageJsonEvent, CreatePackageJsonCommand as any);
+        this.addCommand(InstallNPMDepsEvent, InstallNPMDepsCommand as any);
 
-        this.addCommand(GetModulesEvent, GetModulesCommand);
+        this.addCommand(GetModulesEvent, GetModulesCommand as any);
 
-        this.addCommand(CreateModuleEvent, CreateModuleCommand);
-        this.addCommand(CreateEveCmdEvent, CreateEveCmdCommand);
+        this.addCommand(CreateModuleEvent, CreateModuleCommand as any);
+        this.addCommand(CreateEveCmdEvent, CreateEveCmdCommand as any);
 
-        this.addCommand(CreateAppEvent, CreateAppCommand);
-        this.addCommand(CreateAppStep1DialogEvent, UiCommand);
-        this.addCommand(CreateAppStep2DialogEvent, UiCommand);
-        this.addCommand(CreateAppStep3DialogEvent, UiCommand);
-        this.addCommand(ShowMainMenuEvent, UiCommand);
-        this.addCommand(HandleMainMenuEvent, UiCommand);
+        this.addCommand(CreateAppEvent, CreateAppCommand as any);
+        this.addCommand(CreateAppStep1DialogEvent, UiCommand as any);
+        this.addCommand(CreateAppStep2DialogEvent, UiCommand as any);
+        this.addCommand(CreateAppStep3DialogEvent, UiCommand as any);
+        this.addCommand(ShowMainMenuEvent, UiCommand as any);
+        this.addCommand(HandleMainMenuEvent, UiCommand as any);
 
-        this.addCommand(ShowCreateModuleDialogEvent, UiCommand);
-        this.addCommand(ShowCreateEveCmdEvent, UiCommand);
+        this.addCommand(ShowCreateModuleDialogEvent, UiCommand as any);
+        this.addCommand(ShowCreateEveCmdEvent, UiCommand as any);
 
-        this.addCommand(CreateHbsFileEvent, CreateHbsFileCommand);
+        this.addCommand(CreateHbsFileEvent, CreateHbsFileCommand as any);
     }
 }
