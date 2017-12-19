@@ -1,11 +1,12 @@
 {{#if RUNTIME_WEB}}
 import {FabaWebMediator} from "@fabalous/runtime-web/FabaWebMediator";
+import {{MODULE_COMMAND}} from "./command/{{MODULE_COMMAND}}";
 {{/if}}
 {{#if RUNTIME_NODE}}
 import {FabaNodeMediator} from "@fabalous/runtime-node/FabaNodeMediator";
+import {{MODULE_SERVICE}} from "./service/{{MODULE_SERVICE}}";
 {{/if}}
-import {{MODULE_EVENT}} from "./../event/{{MODULE_EVENT}}";
-import {{MODULE_COMMAND}} from "./command/{{MODULE_COMMAND}}";
+import {{MODULE_EVENT}} from "./event/{{MODULE_EVENT}}";
 {{#if RUNTIME_WEB}}
 export default class {{MODULE_MEDIATOR}} extends FabaWebMediator {
 {{/if}}
@@ -13,6 +14,11 @@ export default class {{MODULE_MEDIATOR}} extends FabaWebMediator {
 export default class {{MODULE_MEDIATOR}} extends FabaNodeMediator {
 {{/if}}
     registerCommands():void {
+        {{#if RUNTIME_WEB}}
         this.addCommand({{MODULE_EVENT}}, {{MODULE_COMMAND}});
+        {{/if}}
+        {{#if RUNTIME_NODE}}
+        this.addCommand({{MODULE_EVENT}}, {{MODULE_SERVICE}});
+        {{/if}}
     }
 }

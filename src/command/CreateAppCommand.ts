@@ -42,6 +42,7 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         const ui = new inquirer.ui.BottomBar({bottomBar: loader[i % 4]});
 
         let yarnExist:boolean = await this.commandExist() as boolean;
+        yarnExist = false;
         let interval;
 
         if (!yarnExist){
@@ -57,7 +58,7 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         console.log();
         ui.updateBottomBar(chalk.bold(chalk.cyan('Installation done!\n')));
         console.log();
-        await new GetPackageJsonEvent().dispatch();
+        //await new GetPackageJsonEvent().dispatch();
         new ShowMainMenuEvent().dispatch();
         event.callBack();
     }

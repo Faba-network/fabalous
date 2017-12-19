@@ -1,7 +1,18 @@
 var gulp = require('gulp');
+var git = require('git-rev-sync');
+var ip = require('ip');
 
 __workDir = __dirname;
-__devTool = 'source-map';
+__devTool = 'cheap-source-map';
+__host = ip.address();
+__port = 8081;
+__maxAssetSize = 1000;
+//__gitHash = git.short();
+
+__alias = {
+    "assets":__workDir + "/src/common/assets/",
+    "src":__workDir + "/src/"
+};
 
 {{#if web}}
 require('@fabalous/runtime-node/config/gulp/RuntimeNode.config')(gulp);

@@ -10,7 +10,6 @@ import {CreateHbsFileEventTypes} from "../event/CreateHbsFileEvent";
 export default class CreateModuleCommand extends FabaCoreCommand<FabalousStore> {
     async execute(event: CreateModuleEvent) {
         const ev:ShowCreateModuleDialogEvent = await new ShowCreateModuleDialogEvent().dispatch();
-        const fs = require('fs-extra');
         const fsn = require('fs');
 
         const filePath = `${__dirname}/../../files/`;
@@ -34,17 +33,18 @@ export default class CreateModuleCommand extends FabaCoreCommand<FabalousStore> 
         };
 
 
-        new CreateHbsFileEvent(CreateHbsFileEventTypes.EVENT, templateData).dispatch();
-        new CreateHbsFileEvent(CreateHbsFileEventTypes.INDEX, templateData).dispatch();
+        new CreateHbsFileEvent(CreateHbsFileEventTypes.EVENT, templateData, true).dispatch();
+        new CreateHbsFileEvent(CreateHbsFileEventTypes.INDEX, templateData, true).dispatch();
 
         for (let runtime of this.data.runtimes) {
             const runtObj = Object.assign({runtime},templateData);
 
-            new CreateHbsFileEvent(CreateHbsFileEventTypes.MEDIATOR, runtObj).dispatch();
-            new CreateHbsFileEvent(CreateHbsFileEventTypes.COMMAND, runtObj).dispatch();
-            new CreateHbsFileEvent(CreateHbsFileEventTypes.SPEC, runtObj).dispatch();
-            new CreateHbsFileEvent(CreateHbsFileEventTypes.VIEW, runtObj).dispatch();
-
+            new CreateHbsFileEvent(CreateHbsFileEventTypes.MEDIATOR, runtObj, true).dispatch();
+            new CreateHbsFileEvent(CreateHbsFileEventTypes.COMMAND, runtObj, true).dispatch();
+            new CreateHbsFileEvent(CreateHbsFileEventTypes.SPEC, runtObj, true).dispatch();
+            if (runtime != "Node"){
+                new CreateHbsFileEvent(CreateHbsFileEventTypes.VIEW, runtObj, true).dispatch();
+            }
         }
 
         console.log(`Module ${ev.data.moduleName} created!`);

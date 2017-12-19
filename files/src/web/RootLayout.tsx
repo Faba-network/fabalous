@@ -1,21 +1,30 @@
 import * as React from "react";
-import {ReactElement} from "react";
-import FabaWebBaseComponent from "@fabalous/runtime-web/FabaWebBaseComponent";
+import WebStore from "./WebStore";
 
 interface IRootLayoutProps{
     childs:any;
+    model: WebStore;
 }
 
-export default class RootLayout extends FabaWebBaseComponent<IRootLayoutProps>{
-    constructor(props){
-        super(props);
+export default class RootLayout extends React.PureComponent<IRootLayoutProps>{
+    render() {
+        if (process.env.NODE_ENV == "development") {
+            let AppContainer = require('react-hot-loader').AppContainer;
+            return (
+                <AppContainer>
+                    {this.renderContent()}
+                </AppContainer>
+            );
+        } else {
+            return this.renderContent();
+        }
     }
 
-    render(): ReactElement<any> {
-        return(
+    renderContent() {
+        return (
             <div>
                 {this.props.childs}
             </div>
-        )
+        );
     }
 }

@@ -1,8 +1,9 @@
-import FabaSerivce from "fabalous-core/core/FabaService";
+import {FabaNodeCommand} from "@fabalous/runtime-node/FabaNodeCommand";
+import NodeStore from "../../common/node/NodeStore";
+import {{MODULE_EVENT}} from "../event/{{MODULE_EVENT}}";
 
-export default class {{MODULE_NAME}} extends FabaSerivce{
-  async execute(event:{{MODULE_EVENT}}) {
-    event.test = "result";
-    super.sendToClient(event);
-  }
+export default class {{MODULE_SERVICE}} extends FabaNodeCommand<NodeStore> {
+    async execute(event: {{MODULE_EVENT}}) {
+        super.emitToUser(event);
+    }
 }

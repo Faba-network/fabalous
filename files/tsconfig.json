@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
+    "module": "esnext",
     "target": "es5",
-    "module": "es6",
     "sourceMap": true,
     "jsx": "react",
     "experimentalDecorators": true,
@@ -13,24 +13,19 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
-    "outDir": "./dist/",
-    "rootDir": "./src/",
     "importHelpers": true,
-    "noEmitHelpers": true,
     "lib": [
-      "es7",
+      "es2015",
       "dom"
-    ]
-  },
-  "awesomeTypescriptLoaderOptions": {
-    "transpileModule": true,
-    "forkChecker": true,
-    "forkCheckerSilent": false,
-    "useBabel": false,
-    "useCache": true,
-    "skipDeclarationFilesCheck": true
+    ],
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": false,
+    "paths": {
+      "assets/*":["./src/common/assets/*"]
+    }
   },
   "exclude": [
-    "node_modules"
+    "./node_modules",
+    "./test"
   ]
 }

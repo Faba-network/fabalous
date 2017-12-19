@@ -1,10 +1,10 @@
-import FabaStore from "@fabalous/core/FabaStore";
-import FabaNodeRuntime from "@fabalous/runtime-node/FabaNodeRuntime";
+import FabaNodeRuntime from "@fabalous/runtime-node/FabaRuntimeNode";
 import NodeStore from "./common/node/NodeStore";
+import FabaStore from "@fabalous/core/store/FabaStore";
 
 class A_Server extends FabaNodeRuntime {
     constructor(data:FabaStore<NodeStore>){
-        super(data);
+        super(data, 8081);
     }
 }
 

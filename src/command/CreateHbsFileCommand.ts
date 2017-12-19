@@ -11,33 +11,51 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
         const baseName = event.data.baseName;
         const upperBaseName = event.data.upperBaseName;
 
-        const moduleName = event.data.moduleName;
+        const moduleName = event.data.moduleName.toLowerCase();
         const upperModuleName = event.data.upperModuleName;
 
         const filePath = event.data.filePath;
         const runtime = (event.data.runtime) ? event.data.runtime : "";
 
         let hbsVars = {
-            MODULE_EVENT:`${baseName}Event`,
-            MODULE_MEDIATOR:`${upperModuleName}${runtime}Mediator`,
-            MODULE_COMMAND:`${baseName}${runtime}Command`,
+            MODULE_EVENT: `${baseName}Event`,
+            MODULE_MEDIATOR: `${upperModuleName}${runtime}Mediator`,
+            MODULE_COMMAND: `${baseName}Command`,
+            MODULE_SERVICE: `${baseName}Service`,
 
-            BASE_NAME:`${baseName}`,
-            UPPER_MODULE_NAME:`${upperModuleName}`,
 
-            RUNTIME_NODE:(runtime == "Node"),
-            RUNTIME_WEB:(runtime == "Web"),
-            RUNTIME_CORDOVA:(runtime == "Cordova"),
-            RUNTIME:`${runtime}`
+            BASE_NAME: `${baseName}`,
+            UPPER_MODULE_NAME: `${upperModuleName}`,
+
+            RUNTIME_NODE: (runtime == "Node"),
+            RUNTIME_WEB: (runtime == "Web"),
+            RUNTIME_CORDOVA: (runtime == "Cordova"),
+            RUNTIME: `${runtime}`,
+            INIT_EVENT: event.init
         };
 
-        switch(event.type){
+        switch (event.type) {
             case CreateHbsFileEventTypes.COMMAND:
-                fs.outputFileSync(
-                    `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/command/${baseName}${runtime}Command.ts`,
-                        this.compileFile(`${filePath}module/command/ModuleCommand.ts.hbs`,hbsVars),
-                    "utf8"
-                );
+                if (runtime == "Node") {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/service/${baseName}Service.ts`,
+                        this.compileFile(`${filePath}module/service/ModuleService.ts.hbs`, hbsVars),
+                        "utf8"
+                    );
+                } else if (runtime == "Web") {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/command/${baseName}Command.tsx`,
+                        this.compileFile(`${filePath}module/command/ModuleCommand.ts.hbs`, hbsVars),
+                        "utf8"
+                    );
+                } else {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/command/${baseName}${runtime}Command.tsx`,
+                        this.compileFile(`${filePath}module/command/ModuleCommand.ts.hbs`, hbsVars),
+                        "utf8"
+                    );
+                }
+
                 break;
             case CreateHbsFileEventTypes.EVENT:
                 fs.outputFileSync(
@@ -54,19 +72,34 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
                 );
                 break;
             case CreateHbsFileEventTypes.MEDIATOR:
-                console.log(runtime);
                 fs.outputFileSync(
-                    `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/${upperModuleName}${runtime}Mediator.ts`,
+                    `${this.data.projectPath}src/${moduleName}/${upperModuleName}${runtime}Mediator.ts`,
                     this.compileFile(`${filePath}module/ModuleMediator.ts.hbs`, hbsVars),
                     "utf8"
                 );
                 break;
             case CreateHbsFileEventTypes.SPEC:
-                fs.outputFileSync(
-                    `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/spec/${upperModuleName}${runtime}Spec.ts`,
-                    this.compileFile(`${filePath}module/spec/ModuleSpec.tsx.hbs`, hbsVars),
-                    "utf8"
-                );
+                if (runtime == "Node") {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/service/${baseName}Service.spec.ts`,
+                        this.compileFile(`${filePath}module/spec/ModuleSpec.tsx.hbs`, hbsVars),
+                        "utf8"
+                    );
+                } else if (runtime == "Web") {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/command/${baseName}Command.spec.ts`,
+                        this.compileFile(`${filePath}module/spec/ModuleSpec.tsx.hbs`, hbsVars),
+                        "utf8"
+                    );
+                } else {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/${upperModuleName}${runtime}.spec.ts`,
+                        this.compileFile(`${filePath}module/spec/ModuleSpec.tsx.hbs`, hbsVars),
+                        "utf8"
+                    );
+                }
+
+
                 break;
             case CreateHbsFileEventTypes.STORE:
                 fs.outputFileSync(
@@ -75,18 +108,29 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
                     "utf8"
                 );
                 break;
+
             case CreateHbsFileEventTypes.VIEW:
-                fs.outputFileSync(
-                    `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/view/${upperModuleName}${runtime}.tsx`,
-                    this.compileFile(`${filePath}module/view/Module.tsx.hbs`, hbsVars),
-                    "utf8"
-                );
+                if (runtime == "Node") return;
+
+                if (runtime == "Web") {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/view/${upperModuleName}.tsx`,
+                        this.compileFile(`${filePath}module/view/Module.tsx.hbs`, hbsVars),
+                        "utf8"
+                    );
+                } else {
+                    fs.outputFileSync(
+                        `${this.data.projectPath}src/${moduleName}/${runtime.toLocaleLowerCase()}/view/${upperModuleName}${runtime}.tsx`,
+                        this.compileFile(`${filePath}module/view/Module.tsx.hbs`, hbsVars),
+                        "utf8"
+                    );
+                }
 
                 break;
         }
     }
 
-     compileFile(path:string, data:any){
+    compileFile(path: string, data: any) {
         try {
             const handlebar = require('handlebars');
 
@@ -94,7 +138,7 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
             const template = handlebar.compile(source);
 
             return template(data);
-        } catch(e){
+        } catch (e) {
             console.log(e);
         }
     }

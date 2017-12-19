@@ -10,10 +10,10 @@
     "co-prompt": "^1.0.0",
     "command-exists": "^1.0.2",
     "commander": "^2.9.0",
-    "fs-extra": "^1.0.0",
+    "fs-extra": "^5.0.0",
     "handlebars": "*",
     "inquirer": "*",
-    "jsonfile": "^2.2.3",
+    "jsonfile": "^4.0.0",
     "ncp": "^2.0.0",
     "tslib": "^1.4.0",
     "typescript": "^2.1.4"
@@ -28,6 +28,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "develop": "tsc --watch",
+    "start": "tsc --watch",
     "postversion": "npm run build && git push --tags && npm publish"
   },
   "repository": {

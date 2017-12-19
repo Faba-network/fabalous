@@ -126,6 +126,7 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
         "scripts": {},
         "dependencies": {},
         "devDependencies": {
+            "git-rev-sync": "^1.9.1",
             "@fabalous/core": "*"
         },
         "fabalous": {

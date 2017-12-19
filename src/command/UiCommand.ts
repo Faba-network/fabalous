@@ -107,12 +107,10 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
                     'Create new Module',
                     'Create Event / Command / Service',
                     'Create View',
-                    /*
                     new this.inquirer.Separator(),
                     'Add Runtime',
                     'Add External Libs',
                     'Show Help'
-                    */
                 ]
             }
         ]);
@@ -150,11 +148,14 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
 
     async showAppDialogStep2() {
         let choices:Array<any> = [];
+        choices.push(new this.inquirer.Separator(' = Webpack = '));
+        choices.push({ name: 'Webpack Stats', value:["webpack-bundle-analyzer"]});
 
         for (let lib of this.data.step1Data.libs) {
             switch (lib){
                 case UiCommandMenuTyes.RUNTIMES_WEB:
                     choices.push(new this.inquirer.Separator(' = Web UI = '));
+                    choices.push({ name: 'Typestyle', value:["typestyle"]});
                     choices.push({ name: 'Material UI', value:["material-ui", "@types/material-ui", "react-tap-event-plugin"]});
                     choices.push(new this.inquirer.Separator(' = Web Database = '));
                     choices.push({ name: 'PouchDB', value:["pouchdb", "@types/pouchdb"]});
@@ -169,6 +170,7 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
 
                     break;
                 default:
+
                     break;
             }
         }
