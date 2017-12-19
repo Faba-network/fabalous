@@ -36,6 +36,9 @@
     "start": "tsc --watch",
     "postversion": "npm run build && git push --tags && npm publish"
   },
+  "bin": {
+    "fabalous": "./dist/cli/CLI.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Faba-network/fabalous.git"
