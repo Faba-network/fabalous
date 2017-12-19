@@ -16,9 +16,8 @@
     "ncp": "^2.0.0"
   },
   "files": [
-    "./files/",
     "files",
-    "build"
+    "dist"
   ],
   "devDependencies": {
     "@types/node": "^8.5.1",
