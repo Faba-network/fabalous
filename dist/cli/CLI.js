@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1032,9 +1030,18 @@ var CreatePackageJsonCommand = (function (_super) {
     }
     CreatePackageJsonCommand.prototype.execute = function (event) {
         return __WEBPACK_IMPORTED_MODULE_0_tslib__["__awaiter"](this, void 0, void 0, function () {
-            var fs;
+            var path, absolutePath, dirString, fs;
             return __WEBPACK_IMPORTED_MODULE_0_tslib__["__generator"](this, function (_a) {
-                this.filePath = __dirname + "/../../files/";
+                path = __webpack_require__("path");
+                absolutePath = path.resolve("./");
+                dirString = path.dirname(this.fs.realpathSync("./"));
+                console.log(process.cwd());
+                console.log(dirString);
+                console.log(__webpack_require__("path").basename(__dirname));
+                console.log(absolutePath);
+                this.filePath = __dirname + "/./../files/";
+                console.log(__dirname);
+                console.log(this.filePath);
                 this.setProjectName(this.data.step1Data.projectName);
                 this.setDevDependencies(this.data.step1Data.libs);
                 this.createDirs(this.data.step1Data.libs);
