@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -395,6 +394,13 @@ var FabaEventResultType;
     FabaEventResultType[FabaEventResultType["OFFLINE"] = 4] = "OFFLINE";
 })(FabaEventResultType || (FabaEventResultType = {}));
 //# sourceMappingURL=FabaEvent.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@fabalous/core/package.json":
+/***/ (function(module, exports) {
+
+module.exports = {"_args":[["@fabalous/core@0.5.31","/Users/creativecode/Projekte/@fabalous/fabalous"]],"_from":"@fabalous/core@0.5.31","_id":"@fabalous/core@0.5.31","_inBundle":false,"_integrity":"sha512-MP9bcoR6GnDO+HNps1rPSFBlTkVYFRiYMBUvr80CtosEBrZ0Xmmdzn0Df/gqt0FDIxWs7x2SWqtVLnjMRYIKIg==","_location":"/@fabalous/core","_phantomChildren":{"@remy/pstree":"1.1.0","ansi-gray":"0.1.1","boxen":"1.3.0","color-convert":"1.9.1","color-support":"1.1.3","create-error-class":"3.0.2","define-property":"1.0.0","dot-prop":"4.2.0","duplexer3":"0.1.4","extend-shallow":"2.0.1","fragment-cache":"0.2.1","get-stream":"3.0.0","import-lazy":"2.1.0","is-accessor-descriptor":"0.1.6","is-data-descriptor":"0.1.4","is-installed-globally":"0.1.0","is-plain-object":"2.0.4","is-retry-allowed":"1.1.0","make-dir":"1.1.0","nanomatch":"1.2.6","object.defaults":"1.1.0","object.map":"1.0.0","object.pick":"1.3.0","path-parse":"1.0.5","posix-character-classes":"0.1.1","regex-not":"1.0.0","registry-auth-token":"3.3.1","remove-trailing-separator":"1.1.0","safe-buffer":"5.1.1","snapdragon":"0.8.1","snapdragon-node":"2.1.1","split-string":"3.1.0","to-regex":"3.0.1","to-regex-range":"2.1.1","unique-string":"1.0.0","unzip-response":"2.0.1","url-parse-lax":"1.0.0"},"_requested":{"type":"version","registry":true,"raw":"@fabalous/core@0.5.31","name":"@fabalous/core","escapedName":"@fabalous%2fcore","scope":"@fabalous","rawSpec":"0.5.31","saveSpec":null,"fetchSpec":"0.5.31"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/@fabalous/core/-/core-0.5.31.tgz","_spec":"0.5.31","_where":"/Users/creativecode/Projekte/@fabalous/fabalous","author":{"name":"Jörg Wasmeier"},"bugs":{"url":"https://github.com/Faba-network/fabalous-core/issues"},"dependencies":{"@types/node":"^8.0.49","@types/systemjs":"^0.20.6","baobab":"^2.5.0","deep-freeze":"0.0.1","deep-object-diff":"^1.0.4","gulp":"^3.9.1","gulp-clean":"^0.3.2","gulp-util":"^3.0.8","nodemon":"^1.12.1","shx":"^0.2.2","tslib":"^1.8.0","typescript":"^2.6.1"},"description":"The Fabulous Faba MVC framework","devDependencies":{"@types/jest":"^21.1.5","gulp-typedoc":"^2.1.1","jest":"^21.2.1","jest-cli":"^21.2.1","ts-jest":"^21.1.4","tslint":"^5.8.0","typedoc":"^0.9.0"},"homepage":"https://github.com/Faba-network/fabalous-core#readme","jest":{"globals":{"__TS_CONFIG__":"tsconfig.json"},"transform":{".(ts|tsx)":"<rootDir>/node_modules/ts-jest/preprocessor.js"},"testRegex":"test/.*\\Spec.(ts|tsx)$","moduleFileExtensions":["ts","tsx","js"],"collectCoverageFrom":["src/**/*.ts","src/**/*.tsx","!src/**/*.d.ts"],"coverageReporters":["lcov"],"testResultsProcessor":"<rootDir>/node_modules/ts-jest/coverageprocessor.js"},"keywords":["MVC","Framework"],"license":"MIT","name":"@fabalous/core","repository":{"type":"git","url":"git+https://github.com/Faba-network/fabalous-core.git"},"scripts":{"build":"gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder","cleanSrc":"find . -name '*.js' -type f -delete","coverage":"jest --no-cache --coverage","develop":"tsc -w","doc":"gulp typedoc","install":"shx cp -Rf ./lib/* ./ && shx rm -r ./lib","localDebug":"npm run build && cp -Rf ./lib/* /Users/creativecode/Projekte/fabalous-runtime-node/node_modules/@fabalous/core/ ","postversion":"npm run build && git push && git push --tags && npm publish","tdd":"jest --watch","test":"jest --no-cache"},"version":"0.5.31"}
 
 /***/ }),
 
@@ -973,7 +979,7 @@ var CreateModuleCommand = (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("tslib");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("tslib");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tslib__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fabalous_core_FabaCoreCommand__ = __webpack_require__("./node_modules/@fabalous/core/FabaCoreCommand.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UiCommand__ = __webpack_require__("./src/command/UiCommand.ts");
@@ -1031,17 +1037,11 @@ var CreatePackageJsonCommand = (function (_super) {
     }
     CreatePackageJsonCommand.prototype.execute = function (event) {
         return __WEBPACK_IMPORTED_MODULE_0_tslib__["__awaiter"](this, void 0, void 0, function () {
-            var path, absolutePath, dirString, fs;
+            var toAbsolutePath, test, fs;
             return __WEBPACK_IMPORTED_MODULE_0_tslib__["__generator"](this, function (_a) {
-                path = __webpack_require__("path");
-                absolutePath = path.resolve("./");
-                dirString = path.dirname(this.fs.realpathSync("./"));
-                console.log(process.cwd());
-                console.log(dirString);
-                console.log(__webpack_require__("path").basename(__dirname));
-                console.log(absolutePath);
-                this.filePath = __dirname + "/./../files/";
-                console.log(__dirname);
+                toAbsolutePath = __webpack_require__("to-absolute-path");
+                test = /*require.resolve*/("./node_modules/@fabalous/core/package.json");
+                this.filePath = toAbsolutePath(test + "../../../../../../../files/") + "/";
                 console.log(this.filePath);
                 this.setProjectName(this.data.step1Data.projectName);
                 this.setDevDependencies(this.data.step1Data.libs);
@@ -1169,7 +1169,6 @@ var CreatePackageJsonCommand = (function (_super) {
 }(__WEBPACK_IMPORTED_MODULE_1__fabalous_core_FabaCoreCommand__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (CreatePackageJsonCommand);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src/command"))
 
 /***/ }),
 
@@ -2028,6 +2027,13 @@ module.exports = require("inquirer");
 /***/ (function(module, exports) {
 
 module.exports = require("path");
+
+/***/ }),
+
+/***/ "to-absolute-path":
+/***/ (function(module, exports) {
+
+module.exports = require("to-absolute-path");
 
 /***/ }),
 

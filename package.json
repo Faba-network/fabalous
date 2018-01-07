@@ -13,6 +13,7 @@
     "inquirer": "^4.0.1",
     "jsonfile": "^4.0.0",
     "ncp": "^2.0.0",
+    "to-absolute-path": "^1.0.0",
     "tslib": "^1.8.1"
   },
   "files": [

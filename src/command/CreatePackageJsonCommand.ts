@@ -10,18 +10,10 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
     filePath;
 
     async execute(event: CreatePackageJsonEvent) {
-        let path = require("path");
-        let absolutePath = path.resolve("./");
-        let dirString = path.dirname(this.fs.realpathSync("./"));
+        let toAbsolutePath = require('to-absolute-path');
+        let test = require.resolve('@fabalous/core/package.json');
 
-        console.log(process.cwd());
-        console.log(dirString);
-        console.log(require('path').basename(__dirname));
-        //console.log(process.chdir());
-        console.log(absolutePath);
-
-        this.filePath = `${__dirname}/./../files/`;
-        console.log(__dirname);
+        this.filePath = toAbsolutePath(test+"../../../../../../../files/")+"/";
         console.log(this.filePath);
 
         this.setProjectName(this.data.step1Data.projectName);
