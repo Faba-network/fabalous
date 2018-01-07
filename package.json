@@ -1,6 +1,6 @@
 {
   "name": "fabalous",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "",
   "dependencies": {
     "cmdify": "^0.0.4",
