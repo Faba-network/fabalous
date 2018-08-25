@@ -1,10 +1,6 @@
 import FabaEvent from "@fabalous/core/FabaEvent";
 
 export default class {{MODULE_EVENT}} extends FabaEvent {
-    {{#if INIT_EVENT}}
-    view:any;
-    {{/if}}
-
     constructor() {
         super("{{MODULE_EVENT}}");
     }

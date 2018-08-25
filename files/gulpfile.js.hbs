@@ -3,8 +3,8 @@ var git = require('git-rev-sync');
 var ip = require('ip');
 
 __workDir = __dirname;
-__devTool = 'cheap-source-map';
-__host = ip.address();
+__devTool = 'source-map';
+__host = '0.0.0.0';
 __port = 8081;
 __maxAssetSize = 1000;
 //__gitHash = git.short();
@@ -14,11 +14,11 @@ __alias = {
     "src":__workDir + "/src/"
 };
 
-{{#if web}}
+{{#if node}}
 require('@fabalous/runtime-node/config/gulp/RuntimeNode.config')(gulp);
 {{/if}}
 
-{{#if node}}
+{{#if web}}
 require('@fabalous/runtime-web/config/gulp/RuntimeWeb.config')(gulp);
 {{/if}}
 

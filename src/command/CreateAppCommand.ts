@@ -51,6 +51,7 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
             }, 100);
         }
 
+
         await new InstallNPMDepsEvent(yarnExist).dispatch();
 
         if (!yarnExist) clearInterval(interval);
@@ -60,7 +61,7 @@ export default class CreateAppCommand extends FabaCoreCommand<FabalousStore> {
         console.log();
         //await new GetPackageJsonEvent().dispatch();
         new ShowMainMenuEvent().dispatch();
-        event.callBack();
+        return event;
     }
 
     async commandExist(){

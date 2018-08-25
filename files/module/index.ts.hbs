@@ -1,27 +1,26 @@
 if (process.env.FABALOUS_RUNTIME == "node"){
     module.exports.default = {
-      mediator: require("./{{UPPER_MODULE_NAME}}NodeMediator").default,
-      initEvent: require("./event/{{BASE_NAME}}Event").default
+      mediator: require("./mediator/{{UPPER_MODULE_NAME}}NodeMediator").default
     };
 }
 
 if (process.env.FABALOUS_RUNTIME == "web"){
     module.exports.default = {
-        mediator: require("./{{UPPER_MODULE_NAME}}WebMediator").default,
-        initEvent: require("./event/{{BASE_NAME}}Event").default
+        mediator: require("./mediator/{{UPPER_MODULE_NAME}}WebMediator").default,
+        view: require("./view").default
     };
 }
 
 if (process.env.FABALOUS_RUNTIME == "cordova"){
     module.exports.default = {
-        mediator: require("./cordova/{{UPPER_MODULE_NAME}}CordovaMediator").default,
-        initEvent: require("./event/{{BASE_NAME}}Event").default
+        mediator: require("./mediator/{{UPPER_MODULE_NAME}}CordovaMediator").default,
+        view: require("./view").default
     };
 }
 
 if (process.env.FABALOUS_RUNTIME == "native"){
     module.exports.default = {
-        mediator: require("./native/{{UPPER_MODULE_NAME}}NativeMediator").default,
-        initEvent: require("./event/{{BASE_NAME}}Event").default
+        mediator: require("./mediator/{{UPPER_MODULE_NAME}}NativeMediator").default,
+        view: require("./view").default
     };
 }

@@ -14,7 +14,7 @@ const chalk = require('chalk');
 export default class UiCommand extends FabaCoreCommand<FabalousStore> {
     inquirer = require("inquirer");
     async execute(event: FabaEvent) {
-        switch (event.name) {
+        switch (event.eventIdentifyer) {
             case ShowMainMenuEvent.name:
                 let choice = await this.showMainMenu();
                 switch(choice.menu){
@@ -30,28 +30,24 @@ export default class UiCommand extends FabaCoreCommand<FabalousStore> {
             case ShowCreateModuleDialogEvent.name:
                 let ev: ShowCreateModuleDialogEvent = event as ShowCreateModuleDialogEvent;
                 ev.data = await this.showCreateModule();
-                ev.callBack();
-                break;
+                return ev;
 
             case ShowCreateEveCmdEvent.name:{
                 let ev:ShowCreateModuleDialogEvent = event as ShowCreateModuleDialogEvent;
                 ev.data = await this.showCreateECSModule();
-                ev.callBack();
-                break;
+                return ev;
             }
 
             case CreateAppStep1DialogEvent.name: {
                 let ev: CreateAppStep1DialogEvent = event as CreateAppStep1DialogEvent;
                 ev.data = await this.showAppDialogStep1();
-                ev.callBack();
-                break;
+                return ev;
             }
 
             case CreateAppStep2DialogEvent.name: {
                 let ev: CreateAppStep2DialogEvent = event as CreateAppStep2DialogEvent;
                 ev.data = await this.showAppDialogStep2();
-                ev.callBack();
-                break;
+                return ev;
             }
 
             case CreateAppStep3DialogEvent.name: {

@@ -29,6 +29,6 @@ export default class GetPackageJsonCommand extends FabaCoreCommand<FabalousStore
             this.data.json = false;
         }
 
-        event.callBack();
+        return event;
     }
 }

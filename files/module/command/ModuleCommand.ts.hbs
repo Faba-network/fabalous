@@ -1,18 +1,10 @@
 import {{MODULE_EVENT}} from "../event/{{MODULE_EVENT}}";
 {{#if RUNTIME_WEB}}
 import {FabaWebCommand} from "@fabalous/runtime-web/FabaWebCommand";
-import WebStore from "../../common/web/WebStore";
-{{#if INIT_EVENT}}
-import * as React from "react";
-import {{UPPER_MODULE_NAME}} from "../view/{{UPPER_MODULE_NAME}}";
-{{/if}}
+import WebStore from "../../AppState";
 
-export default class {{MODULE_COMMAND}} extends FabaWebCommand<WebStore> {
+export default class {{MODULE_COMMAND}} extends FabaWebCommand<AppState> {
 {{/if}}
-    async execute(event:{{MODULE_EVENT}}) {
-        {{#if INIT_EVENT}}
-        event.view = <{{UPPER_MODULE_NAME}} />;
-        event.callBack();
-        {{/if}}
+    execute(event:{{MODULE_EVENT}}) {
     }
 }

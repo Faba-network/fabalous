@@ -19,6 +19,6 @@ export default class GetModulesCommand extends FabaCoreCommand<FabalousStore> {
             }
         }
 
-        event.callBack();
+        return event
     }
 }

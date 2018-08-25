@@ -1,15 +1,25 @@
 import * as React from "react";
+import AppState from "../../AppState";
 
-interface I{{UPPER_MODULE_NAME}}Props{
+import {connectWithRoute} from "@fabalous/runtime-web/utils/connect";
+import {IRoutes} from "@fabalous/runtime-web/routes/IRoutes";
 
+interface Props{
 }
 
-export default class {{UPPER_MODULE_NAME}} extends React.PureComponent<I{{UPPER_MODULE_NAME}}Props>{
-    render(): React.ReactElement<I{{UPPER_MODULE_NAME}}Props> {
+class {{UPPER_MODULE_NAME}} extends React.PureComponent<Props>{
+    render(): React.ReactElement<Props> {
         return(
-            <div>
+            <>
                 {{UPPER_MODULE_NAME}}
-            </div>
+            </>
         )
     }
 }
+
+function mapStateToProps (state: AppState, route:IRoutes): Props {
+    return {
+    }
+};
+
+export default connectWithRoute(mapStateToProps)({{UPPER_MODULE_NAME}});

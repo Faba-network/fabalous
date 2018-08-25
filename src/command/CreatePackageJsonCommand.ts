@@ -14,7 +14,6 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
         let test = require.resolve('@fabalous/core/package.json');
 
         this.filePath = toAbsolutePath(test+"../../../../../../../files/")+"/";
-        console.log(this.filePath);
 
         this.setProjectName(this.data.step1Data.projectName);
         this.setDevDependencies(this.data.step1Data.libs);
@@ -24,7 +23,7 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
 
         let fs = require('fs-extra');
         fs.writeJson(`${this.data.projectPath}package.json`, this.json, (err) => {
-            event.callBack();
+            return event;
         });
     }
 
@@ -96,24 +95,25 @@ export default class CreatePackageJsonCommand extends FabaCoreCommand<FabalousSt
     copyStarterFiles(deps: Array<UiCommandMenuTyes>) {
         let fs = require('fs-extra');
 
-        fs.copySync(`${this.filePath}/src/Routes.ts`, `${this.data.projectPath}src/common/Routes.ts`);
+        fs.copySync(`${this.filePath}/src/Routes.ts`, `${this.data.projectPath}src/Routes.ts`);
         fs.copySync(`${this.filePath}/tsconfig.json`, `${this.data.projectPath}tsconfig.json`);
+        fs.copySync(`${this.filePath}/tsconfig_jest.json`, `${this.data.projectPath}tsconfig_jest.json`);
+        fs.copySync(`${this.filePath}/tslint.json`, `${this.data.projectPath}tslint.json`);
         fs.copySync(`${this.filePath}/gitignore`, `${this.data.projectPath}.gitignore`);
         fs.copySync(`${this.filePath}/npmignore`, `${this.data.projectPath}.npmignore`);
-
         fs.outputFileSync(`${this.data.projectPath}gulpfile.js`, this.compileGulpFile(), "utf8");
 
         for (let dep of deps) {
             switch (dep) {
                 case UiCommandMenuTyes.RUNTIMES_NODE:
-                    fs.copySync(`${this.filePath}/src/node/A_Node.ts`, `${this.data.projectPath}src/A_Node.ts`);
-                    fs.copySync(`${this.filePath}/src/node/NodeStore.ts`, `${this.data.projectPath}src/common/node/NodeStore.ts`);
+                    fs.copySync(`${this.filePath}/src/node/AppNode.ts`, `${this.data.projectPath}src/AppNode.ts`);
+                    fs.copySync(`${this.filePath}/src/node/NodeStore.ts`, `${this.data.projectPath}src/common/NodeStore.ts`);
                     break;
                 case UiCommandMenuTyes.RUNTIMES_WEB:
                     fs.copySync(`${this.filePath}/src/web/index.ejs`, `${this.data.projectPath}src/common/web/index.ejs`);
-                    fs.copySync(`${this.filePath}/src/web/A_Web.ts`, `${this.data.projectPath}src/A_Web.ts`);
-                    fs.copySync(`${this.filePath}/src/web/RootLayout.tsx`, `${this.data.projectPath}src/common/web/RootLayout.tsx`);
-                    fs.copySync(`${this.filePath}/src/web/WebStore.ts`, `${this.data.projectPath}src/common/web/WebStore.ts`);
+                    fs.copySync(`${this.filePath}/src/web/AppWeb.ts`, `${this.data.projectPath}src/AppWeb.ts`);
+                    fs.copySync(`${this.filePath}/src/web/WebLayout.tsx`, `${this.data.projectPath}src/common/web/WebLayout.tsx`);
+                    fs.copySync(`${this.filePath}/src/web/AppState.ts`, `${this.data.projectPath}src/AppState.ts`);
                     break;
                 case UiCommandMenuTyes.RUNTIMES_APP:
                     fs.copySync(`${this.filePath}/src/cordova/index.ejs`, `${this.data.projectPath}src/common/cordova/index.ejs`);

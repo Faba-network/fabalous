@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+// #!/usr/bin/env node
 import FabaCore from "@fabalous/core/FabaCore";
 import FabalousStore from "./FabalousStore";
 import InitFabalousEvent from "./event/InitFabalousEvent";
@@ -9,6 +9,7 @@ declare var process;
 
 class A_CLI extends FabaCore{
     constructor(store){
+        console.log("wot")
         process.on('uncaughtException', function(err) {
             throw err;
         });

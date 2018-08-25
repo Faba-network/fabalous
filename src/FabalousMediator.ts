@@ -27,6 +27,8 @@ import GetModulesCommand from "./command/GetModulesCommand";
 import GetModulesEvent from "./event/GetModulesEvent";
 import CreateHbsFileEvent from "./event/CreateHbsFileEvent";
 import CreateHbsFileCommand from "./command/CreateHbsFileCommand";
+import AddToMediatorEvent from "./event/AddToMediatorEvent";
+import AddToMediatorCommand from "./command/AddToMediatorCommand";
 
 export default class FabalousMediator extends FabaCoreMediator{
     addCommand(event: any, command: typeof FabaCoreCommand): void {
@@ -34,6 +36,7 @@ export default class FabalousMediator extends FabaCoreMediator{
     }
 
     registerCommands(): void {
+        this.addCommand(AddToMediatorEvent, AddToMediatorCommand as any);
         this.addCommand(InitFabalousEvent, InitFabalousCommand as any);
         this.addCommand(GetPackageJsonEvent, GetPackageJsonCommand as any);
         this.addCommand(CreatePackageJsonEvent, CreatePackageJsonCommand as any);

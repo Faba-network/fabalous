@@ -1,31 +1,30 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "target": "es5",
+    "target": "es2017",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "pretty": true,
     "sourceMap": true,
     "jsx": "react",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declaration": false,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
-    "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
+    "rootDir": "./src/",
     "importHelpers": true,
     "lib": [
       "es2015",
       "dom"
     ],
     "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
+    "baseUrl": "./",
     "paths": {
-      "assets/*":["./src/common/assets/*"]
+      "assets/*": [
+        "./src/assets/*"
+      ]
     }
   },
   "exclude": [
-    "./node_modules",
-    "./test"
+    "node_modules",
+    "test"
   ]
 }

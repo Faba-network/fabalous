@@ -18,7 +18,7 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
         const runtime = (event.data.runtime) ? event.data.runtime : "";
 
         let hbsVars = {
-            MODULE_EVENT: `${baseName}Event`,
+            MODULE_EVENT: `${baseName}`,
             MODULE_MEDIATOR: `${upperModuleName}${runtime}Mediator`,
             MODULE_COMMAND: `${baseName}Command`,
             MODULE_SERVICE: `${baseName}Service`,
@@ -59,7 +59,7 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
                 break;
             case CreateHbsFileEventTypes.EVENT:
                 fs.outputFileSync(
-                    `${this.data.projectPath}src/${moduleName}/event/${baseName}Event.ts`,
+                    `${this.data.projectPath}src/${moduleName}/event/${baseName}.ts`,
                     this.compileFile(`${filePath}module/event/ModuleEvent.ts.hbs`, hbsVars),
                     "utf8"
                 );
@@ -73,7 +73,7 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
                 break;
             case CreateHbsFileEventTypes.MEDIATOR:
                 fs.outputFileSync(
-                    `${this.data.projectPath}src/${moduleName}/${upperModuleName}${runtime}Mediator.ts`,
+                    `${this.data.projectPath}src/${moduleName}/mediator/${upperModuleName}${runtime}Mediator.ts`,
                     this.compileFile(`${filePath}module/ModuleMediator.ts.hbs`, hbsVars),
                     "utf8"
                 );
@@ -81,13 +81,13 @@ export default class CreateHbsFileCommand extends FabaCoreCommand<FabalousStore>
             case CreateHbsFileEventTypes.SPEC:
                 if (runtime == "Node") {
                     fs.outputFileSync(
-                        `${this.data.projectPath}src/${moduleName}/service/${baseName}Service.spec.ts`,
+                        `${this.data.projectPath}src/${moduleName}/service/spec/${baseName}Service.spec.ts`,
                         this.compileFile(`${filePath}module/spec/ModuleSpec.tsx.hbs`, hbsVars),
                         "utf8"
                     );
                 } else if (runtime == "Web") {
                     fs.outputFileSync(
-                        `${this.data.projectPath}src/${moduleName}/command/${baseName}Command.spec.ts`,
+                        `${this.data.projectPath}src/${moduleName}/command/spec/${baseName}Command.spec.ts`,
                         this.compileFile(`${filePath}module/spec/ModuleSpec.tsx.hbs`, hbsVars),
                         "utf8"
                     );
